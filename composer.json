@@ -1,0 +1,87 @@
+{
+    "name": "sistema-esic/esic",
+    "description": "Sistema Eletrônico do Serviço de Informação ao Cidadão - LAI",
+    "type": "project",
+    "keywords": ["esic", "lai", "transparencia", "acesso-informacao", "governo"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sistema E-SIC",
+            "email": "dev@sistema-esic.gov.br",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.0",
+        "ext-pdo": "*",
+        "ext-pdo_mysql": "*",
+        "ext-mbstring": "*",
+        "ext-openssl": "*",
+        "ext-curl": "*",
+        "ext-json": "*",
+        "ext-fileinfo": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.0",
+        "squizlabs/php_codesniffer": "^3.6",
+        "phpstan/phpstan": "^1.0"
+    },
+    "suggest": {
+        "phpmailer/phpmailer": "Para envio de emails mais robusto",
+        "league/oauth2-client": "Para implementação OAuth2 mais completa",
+        "monolog/monolog": "Para sistema de logs avançado",
+        "twig/twig": "Para templates mais avançados",
+        "symfony/console": "Para comandos CLI",
+        "vlucas/phpdotenv": "Para carregamento de .env mais robusto"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "App\\Controllers\\": "app/controllers/",
+            "App\\Models\\": "app/models/",
+            "App\\Config\\": "app/config/",
+            "App\\Libraries\\": "app/libraries/",
+            "App\\Middleware\\": "app/middleware/"
+        },
+        "files": [
+            "app/config/Database.php",
+            "app/config/Auth.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "test-coverage": "phpunit --coverage-html coverage",
+        "cs-check": "phpcs --standard=PSR12 app/ public/",
+        "cs-fix": "phpcbf --standard=PSR12 app/ public/",
+        "analyse": "phpstan analyse app/ --level=5",
+        "post-install-cmd": [
+            "@php -r \"copy('.env.example', '.env');\""
+        ],
+        "setup": [
+            "@composer install",
+            "@php -r \"copy('.env.example', '.env');\"",
+            "echo 'Configure o arquivo .env com suas configurações'",
+            "echo 'Execute: mysql < database/schema.sql'"
+        ]
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "allow-plugins": {
+            "composer/installers": true
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "extra": {
+        "branch-alias": {
+            "dev-main": "1.0-dev"
+        }
+    }
+}
