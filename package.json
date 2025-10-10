@@ -1,0 +1,31 @@
+{
+  "name": "esic",
+  "version": "1.0.0",
+  "description": "Desenvolver um Sistema Eletrônico do Serviço de Informação ao Cidadão (E-SIC) para implementação da Lei 12.527/2011 (LAI). O sistema permitirá que cidadãos solicitem informações públicas e que órgãos públicos gerenciem essas solicitações de forma transparente.",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:studio": "prisma studio",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["esic", "lei-de-acesso-a-informacao", "lai", "governo", "transparencia"],
+  "author": "DalmoVieira",
+  "license": "MIT",
+  "dependencies": {
+    "@prisma/client": "^6.17.1",
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "express-validator": "^7.2.1",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^2.0.2",
+    "prisma": "^6.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}

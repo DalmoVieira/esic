@@ -1,0 +1,174 @@
+// Prisma schema for E-SIC System
+// Lei 12.527/2011 (LAI) - Lei de Acesso à Informação
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  CITIZEN      // Cidadão - pode fazer solicitações
+  AGENT        // Atendente - responde solicitações
+  MANAGER      // Gestor - gerencia unidade
+  ADMIN        // Administrador do sistema
+}
+
+enum RequestStatus {
+  PENDING      // Aguardando atendimento
+  IN_PROGRESS  // Em andamento
+  ANSWERED     // Respondida
+  DENIED       // Negada
+  APPEALED     // Com recurso
+  CLOSED       // Finalizada
+}
+
+enum AppealStatus {
+  PENDING      // Aguardando análise
+  ACCEPTED     // Recurso aceito
+  REJECTED     // Recurso rejeitado
+}
+
+model User {
+  id            String    @id @default(uuid())
+  email         String    @unique
+  password      String
+  name          String
+  cpf           String?   @unique
+  phone         String?
+  role          UserRole  @default(CITIZEN)
+  active        Boolean   @default(true)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  
+  // Relations
+  requests      Request[]
+  responses     Response[]
+  appeals       Appeal[]
+  unit          Unit?     @relation(fields: [unitId], references: [id])
+  unitId        String?
+  
+  @@map("users")
+}
+
+model Unit {
+  id            String    @id @default(uuid())
+  name          String
+  description   String?
+  email         String
+  phone         String?
+  address       String?
+  active        Boolean   @default(true)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  
+  // Relations
+  users         User[]
+  requests      Request[]
+  
+  @@map("units")
+}
+
+model Request {
+  id            String        @id @default(uuid())
+  protocol      String        @unique
+  subject       String
+  description   String
+  status        RequestStatus @default(PENDING)
+  anonymous     Boolean       @default(false)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  deadlineAt    DateTime      // Prazo legal: 20 dias
+  
+  // Relations
+  citizen       User          @relation(fields: [citizenId], references: [id])
+  citizenId     String
+  
+  unit          Unit          @relation(fields: [unitId], references: [id])
+  unitId        String
+  
+  responses     Response[]
+  documents     Document[]
+  appeals       Appeal[]
+  timeline      Timeline[]
+  
+  @@map("requests")
+}
+
+model Response {
+  id            String    @id @default(uuid())
+  content       String
+  partial       Boolean   @default(false) // Resposta parcial
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  
+  // Relations
+  request       Request   @relation(fields: [requestId], references: [id])
+  requestId     String
+  
+  author        User      @relation(fields: [authorId], references: [id])
+  authorId      String
+  
+  documents     Document[]
+  
+  @@map("responses")
+}
+
+model Document {
+  id            String    @id @default(uuid())
+  filename      String
+  originalName  String
+  mimeType      String
+  size          Int
+  path          String
+  createdAt     DateTime  @default(now())
+  
+  // Relations
+  request       Request?  @relation(fields: [requestId], references: [id])
+  requestId     String?
+  
+  response      Response? @relation(fields: [responseId], references: [id])
+  responseId    String?
+  
+  appeal        Appeal?   @relation(fields: [appealId], references: [id])
+  appealId      String?
+  
+  @@map("documents")
+}
+
+model Appeal {
+  id            String        @id @default(uuid())
+  reason        String
+  status        AppealStatus  @default(PENDING)
+  decision      String?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  decidedAt     DateTime?
+  
+  // Relations
+  request       Request       @relation(fields: [requestId], references: [id])
+  requestId     String
+  
+  citizen       User          @relation(fields: [citizenId], references: [id])
+  citizenId     String
+  
+  documents     Document[]
+  
+  @@map("appeals")
+}
+
+model Timeline {
+  id            String    @id @default(uuid())
+  action        String
+  description   String?
+  createdAt     DateTime  @default(now())
+  
+  // Relations
+  request       Request   @relation(fields: [requestId], references: [id])
+  requestId     String
+  
+  @@map("timeline")
+}

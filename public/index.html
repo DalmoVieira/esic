@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-SIC - Sistema Eletrônico do Serviço de Informação ao Cidadão</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 1200px;
+            width: 100%;
+            padding: 40px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .hero h2 {
+            font-size: 2em;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .feature-card {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-card h3 {
+            color: #667eea;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+
+        .api-section {
+            background: #2d3748;
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .api-section h2 {
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .endpoint {
+            background: #1a202c;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .method {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-weight: bold;
+            margin-right: 10px;
+            font-size: 0.85em;
+        }
+
+        .method.get {
+            background: #48bb78;
+        }
+
+        .method.post {
+            background: #4299e1;
+        }
+
+        .method.put {
+            background: #ed8936;
+        }
+
+        .method.delete {
+            background: #f56565;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .tech-badge {
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+        }
+
+        .status {
+            text-align: center;
+            padding: 20px;
+            background: #48bb78;
+            color: white;
+            border-radius: 10px;
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+
+        footer {
+            text-align: center;
+            color: #666;
+            padding-top: 30px;
+            border-top: 2px solid #f0f0f0;
+            margin-top: 40px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 15px;
+        }
+
+        .footer-links a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏛️ E-SIC</h1>
+            <p class="subtitle">Sistema Eletrônico do Serviço de Informação ao Cidadão</p>
+            <span class="badge">Lei 12.527/2011 (LAI)</span>
+        </header>
+
+        <div class="status">
+            ✅ Sistema E-SIC API está funcionando!
+        </div>
+
+        <div class="hero">
+            <h2>Transparência e Acesso à Informação</h2>
+            <p>
+                Plataforma completa para implementação da Lei de Acesso à Informação (LAI), 
+                permitindo que cidadãos solicitem informações públicas e órgãos governamentais 
+                gerenciem essas solicitações de forma transparente e eficiente.
+            </p>
+        </div>
+
+        <section class="features">
+            <div class="feature-card">
+                <div class="icon">👥</div>
+                <h3>Portal do Cidadão</h3>
+                <p>
+                    Interface intuitiva para cidadãos criarem solicitações, acompanharem o status 
+                    em tempo real e receberem respostas com documentos anexados.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="icon">🏢</div>
+                <h3>Gestão de Órgãos</h3>
+                <p>
+                    Sistema completo para órgãos públicos gerenciarem solicitações, atribuírem 
+                    responsáveis e responderem dentro dos prazos legais (20 dias).
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="icon">📊</div>
+                <h3>Recursos e Appeals</h3>
+                <p>
+                    Sistema de recursos permitindo que cidadãos recorram de decisões, com 
+                    acompanhamento completo do processo até a decisão final.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="icon">🔒</div>
+                <h3>Segurança e Privacidade</h3>
+                <p>
+                    Autenticação JWT, criptografia de senhas com bcrypt, controle de acesso 
+                    baseado em roles e proteção de dados sensíveis.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="icon">📝</div>
+                <h3>Protocolo Único</h3>
+                <p>
+                    Cada solicitação recebe um protocolo único (formato ESIC-ANO-XXXXXX) 
+                    para rastreamento e consulta facilitada.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="icon">⏰</div>
+                <h3>Gestão de Prazos</h3>
+                <p>
+                    Controle automático de prazos conforme a LAI, com alertas e notificações 
+                    para prazos próximos do vencimento.
+                </p>
+            </div>
+        </section>
+
+        <section class="api-section">
+            <h2>📡 API Endpoints Principais</h2>
+            
+            <div class="endpoint">
+                <span class="method post">POST</span>
+                <span>/api/auth/register - Registro de novo usuário</span>
+            </div>
+            <div class="endpoint">
+                <span class="method post">POST</span>
+                <span>/api/auth/login - Login de usuário</span>
+            </div>
+            <div class="endpoint">
+                <span class="method post">POST</span>
+                <span>/api/requests - Criar nova solicitação</span>
+            </div>
+            <div class="endpoint">
+                <span class="method get">GET</span>
+                <span>/api/requests/my-requests - Listar minhas solicitações</span>
+            </div>
+            <div class="endpoint">
+                <span class="method get">GET</span>
+                <span>/api/requests/protocol/:protocol - Consultar por protocolo</span>
+            </div>
+            <div class="endpoint">
+                <span class="method post">POST</span>
+                <span>/api/requests/protocol/:protocol/response - Adicionar resposta</span>
+            </div>
+            <div class="endpoint">
+                <span class="method post">POST</span>
+                <span>/api/appeals/request/:protocol - Criar recurso</span>
+            </div>
+            <div class="endpoint">
+                <span class="method get">GET</span>
+                <span>/api/units - Listar unidades disponíveis</span>
+            </div>
+        </section>
+
+        <section>
+            <h2 style="text-align: center; margin-bottom: 20px;">🛠️ Stack Tecnológica</h2>
+            <div class="tech-stack">
+                <span class="tech-badge">Node.js</span>
+                <span class="tech-badge">Express</span>
+                <span class="tech-badge">PostgreSQL</span>
+                <span class="tech-badge">Prisma ORM</span>
+                <span class="tech-badge">JWT</span>
+                <span class="tech-badge">Bcrypt</span>
+                <span class="tech-badge">Multer</span>
+            </div>
+        </section>
+
+        <footer>
+            <p><strong>E-SIC - Sistema de Acesso à Informação</strong></p>
+            <p>Implementação da Lei 12.527/2011 (Lei de Acesso à Informação)</p>
+            <div class="footer-links">
+                <a href="/api/health">Status da API</a>
+                <a href="https://github.com/DalmoVieira/esic">GitHub</a>
+                <a href="http://www.planalto.gov.br/ccivil_03/_ato2011-2014/2011/lei/l12527.htm" target="_blank">Lei 12.527/2011</a>
+            </div>
+            <p style="margin-top: 20px;">© 2025 - Licença MIT</p>
+        </footer>
+    </div>
+</body>
+</html>
