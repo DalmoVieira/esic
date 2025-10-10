@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:14-alpine
+    container_name: esic-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-esic}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-esic_password}
+      POSTGRES_DB: ${POSTGRES_DB:-esic_db}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-esic}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build: .
+    container_name: esic-app
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-esic}:${POSTGRES_PASSWORD:-esic_password}@postgres:5432/${POSTGRES_DB:-esic_db}?schema=public
+      JWT_SECRET: ${JWT_SECRET:-change-this-in-production}
+      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN:-7d}
+      PORT: 3001
+      NODE_ENV: ${NODE_ENV:-production}
+    ports:
+      - "${APP_PORT:-3001}:3001"
+    volumes:
+      - ./uploads:/app/uploads
+    command: >
+      sh -c "
+        echo 'Waiting for database...' &&
+        sleep 5 &&
+        echo 'Running migrations...' &&
+        npx prisma migrate deploy &&
+        echo 'Starting application...' &&
+        npm start
+      "
+
+volumes:
+  postgres_data:
+    driver: local

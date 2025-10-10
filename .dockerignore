@@ -1,0 +1,44 @@
+# Git
+.git
+.gitignore
+
+# Node
+node_modules
+npm-debug.log
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Development
+.vscode
+.idea
+*.swp
+
+# Testing
+coverage
+
+# Documentation
+*.md
+!README.md
+
+# CI/CD
+.github
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs
+*.log
+
+# Uploads (will be volume mounted)
+uploads/*
+!uploads/.gitkeep
