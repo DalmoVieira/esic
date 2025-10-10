@@ -1,0 +1,145 @@
+name: CI/CD
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Check code formatting
+      run: |
+        echo "Linting not configured yet"
+        # npm run lint
+
+  build:
+    runs-on: ubuntu-latest
+    
+    services:
+      postgres:
+        image: postgres:14
+        env:
+          POSTGRES_USER: esic
+          POSTGRES_PASSWORD: esic_test
+          POSTGRES_DB: esic_test
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Generate Prisma Client
+      run: npm run prisma:generate
+      env:
+        DATABASE_URL: postgresql://esic:esic_test@localhost:5432/esic_test?schema=public
+    
+    - name: Run migrations
+      run: npx prisma migrate deploy
+      env:
+        DATABASE_URL: postgresql://esic:esic_test@localhost:5432/esic_test?schema=public
+    
+    - name: Test application start
+      run: |
+        timeout 10s npm start || code=$?; if [[ $code -ne 124 && $code -ne 0 ]]; then exit $code; fi
+      env:
+        DATABASE_URL: postgresql://esic:esic_test@localhost:5432/esic_test?schema=public
+        JWT_SECRET: test_secret
+        PORT: 3001
+        NODE_ENV: test
+
+  # Uncomment when tests are implemented
+  # test:
+  #   runs-on: ubuntu-latest
+  #   
+  #   services:
+  #     postgres:
+  #       image: postgres:14
+  #       env:
+  #         POSTGRES_USER: esic
+  #         POSTGRES_PASSWORD: esic_test
+  #         POSTGRES_DB: esic_test
+  #       options: >-
+  #         --health-cmd pg_isready
+  #         --health-interval 10s
+  #         --health-timeout 5s
+  #         --health-retries 5
+  #       ports:
+  #         - 5432:5432
+  #   
+  #   steps:
+  #   - uses: actions/checkout@v3
+  #   
+  #   - name: Setup Node.js
+  #     uses: actions/setup-node@v3
+  #     with:
+  #       node-version: '20'
+  #       cache: 'npm'
+  #   
+  #   - name: Install dependencies
+  #     run: npm ci
+  #   
+  #   - name: Generate Prisma Client
+  #     run: npm run prisma:generate
+  #   
+  #   - name: Run migrations
+  #     run: npx prisma migrate deploy
+  #     env:
+  #       DATABASE_URL: postgresql://esic:esic_test@localhost:5432/esic_test?schema=public
+  #   
+  #   - name: Run tests
+  #     run: npm test
+  #     env:
+  #       DATABASE_URL: postgresql://esic:esic_test@localhost:5432/esic_test?schema=public
+  #       JWT_SECRET: test_secret
+
+  docker:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: [lint, build]
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Build Docker image
+      run: docker build -t esic:latest .
+    
+    - name: Test Docker image
+      run: |
+        docker run -d --name esic-test \
+          -e DATABASE_URL=postgresql://test:test@localhost:5432/test \
+          -e JWT_SECRET=test \
+          -p 3001:3001 \
+          esic:latest
+        sleep 5
+        docker logs esic-test
+        docker stop esic-test
+        docker rm esic-test
