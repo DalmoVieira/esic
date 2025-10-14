@@ -1,0 +1,27 @@
+<!-- Logo fictício SVG para Prefeitura de Rio Claro -->
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="80" viewBox="0 0 120 80">
+  <!-- Fundo azul representando o céu/água -->
+  <rect width="120" height="80" fill="#0d47a1"/>
+  
+  <!-- Montanhas em verde -->
+  <path d="M0 50 L30 30 L60 40 L90 25 L120 35 L120 80 L0 80 Z" fill="#2e7d32"/>
+  
+  <!-- Cidade/prédios -->
+  <rect x="20" y="45" width="8" height="15" fill="#ffffff"/>
+  <rect x="35" y="40" width="10" height="20" fill="#ffffff"/>
+  <rect x="50" y="42" width="8" height="18" fill="#ffffff"/>
+  <rect x="65" y="38" width="12" height="22" fill="#ffffff"/>
+  <rect x="80" y="43" width="9" height="17" fill="#ffffff"/>
+  
+  <!-- Texto "RC" -->
+  <text x="60" y="25" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#ffffff">RC</text>
+  
+  <!-- Sol -->
+  <circle cx="95" cy="15" r="8" fill="#ffc107"/>
+  
+  <!-- Raios do sol -->
+  <line x1="95" y1="2" x2="95" y2="6" stroke="#ffc107" stroke-width="1"/>
+  <line x1="95" y1="24" x2="95" y2="28" stroke="#ffc107" stroke-width="1"/>
+  <line x1="82" y1="15" x2="86" y2="15" stroke="#ffc107" stroke-width="1"/>
+  <line x1="104" y1="15" x2="108" y2="15" stroke="#ffc107" stroke-width="1"/>
+</svg>

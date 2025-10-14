@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E-SIC - Sistema Eletrônico de Informações ao Cidadão</title>
-    <meta name="description" content="Sistema Eletrônico de Informações ao Cidadão - Lei de Acesso à Informação">
+    <title>E-SIC - Prefeitura de Rio Claro - RJ</title>
+    <meta name="description" content="Sistema Eletrônico de Informações ao Cidadão - Prefeitura Municipal de Rio Claro - RJ"
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <style>
@@ -28,7 +28,8 @@
     <nav class="navbar navbar-expand-lg navbar-dark hero-gradient">
         <div class="container">
             <a class="navbar-brand fw-bold" href="/">
-                <i class="bi bi-info-circle"></i> E-SIC
+                <img src="assets/images/logo-rioclaro.svg" alt="Logo Rio Claro" height="32" class="me-2" onerror="this.style.display='none'">
+                E-SIC Rio Claro
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -56,8 +57,10 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="text-center mb-5">
-                    <h1 class="display-4 text-primary mb-3">Sistema E-SIC</h1>
-                    <p class="lead">Sistema Eletrônico de Informações ao Cidadão</p>
+                    <img src="assets/images/logo-rioclaro.svg" alt="Logo Prefeitura de Rio Claro" class="mb-3" style="max-height: 80px;" onerror="this.style.display='none'">
+                    <h1 class="display-4 text-primary mb-3">E-SIC Rio Claro</h1>
+                    <p class="lead">Prefeitura Municipal de Rio Claro - RJ</p>
+                    <p class="text-muted">Sistema Eletrônico de Informações ao Cidadão</p>
                     <div class="alert alert-success">
                         <i class="bi bi-check-circle"></i> Sistema funcionando - <?= date('d/m/Y H:i:s') ?>
                     </div>
@@ -196,15 +199,18 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
-                    <h6><i class="bi bi-info-circle"></i> Sistema E-SIC</h6>
-                    <p class="small mb-0">Sistema Eletrônico de Informações ao Cidadão</p>
+                    <h6><i class="bi bi-building"></i> Prefeitura de Rio Claro</h6>
+                    <p class="small mb-0">
+                        Av. João Portugal Baptista, 230<br>
+                        Rio Claro - RJ - CEP: 27.460-000
+                    </p>
                     <small class="text-muted">Lei nº 12.527/2011</small>
                 </div>
                 <div class="col-md-4">
                     <h6><i class="bi bi-telephone"></i> Contato</h6>
                     <p class="small mb-0">
-                        Telefone: (11) 1234-5678<br>
-                        Email: esic@exemplo.gov.br<br>
+                        Telefone: (22) 0000-0000<br>
+                        Email: pmrc@rioclaro.rj.gov.br<br>
                         Horário: 8h às 17h (dias úteis)
                     </p>
                 </div>
@@ -220,7 +226,7 @@
             </div>
             <hr class="my-3">
             <div class="text-center">
-                <small>&copy; 2025 Sistema E-SIC. Desenvolvido para transparência pública e acesso à informação.</small>
+                <small>&copy; 2025 Prefeitura Municipal de Rio Claro - RJ. Sistema E-SIC para transparência pública e acesso à informação.</small>
             </div>
         </div>
     </footer>

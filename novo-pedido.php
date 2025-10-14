@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nova Solicitação - E-SIC</title>
+    <title>Nova Solicitação - E-SIC Rio Claro</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
 </head>
@@ -11,7 +11,8 @@
     <nav class="navbar navbar-expand-lg navbar-dark" style="background: linear-gradient(135deg, #0d47a1, #1565c0);">
         <div class="container">
             <a class="navbar-brand fw-bold" href="/">
-                <i class="bi bi-info-circle"></i> E-SIC
+                <img src="assets/images/logo-rioclaro.svg" alt="Logo Rio Claro" height="32" class="me-2" onerror="this.style.display='none'">
+                E-SIC Rio Claro
             </a>
             <div class="navbar-nav ms-auto">
                 <a class="nav-link" href="/">← Voltar ao Início</a>

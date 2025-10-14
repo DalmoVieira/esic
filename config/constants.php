@@ -11,11 +11,23 @@ define('LOG_PATH', STORAGE_PATH . '/logs');
 define('CACHE_PATH', STORAGE_PATH . '/cache');
 
 // Application settings
-define('APP_NAME', 'Sistema E-SIC');
+define('APP_NAME', 'E-SIC - Prefeitura de Rio Claro');
 define('APP_VERSION', '2.0.0');
 define('APP_ENV', $_ENV['APP_ENV'] ?? 'production');
 define('APP_DEBUG', $_ENV['APP_DEBUG'] ?? false);
 define('APP_URL', $_ENV['APP_URL'] ?? 'http://localhost');
+
+// Organization settings - Prefeitura de Rio Claro
+define('ORG_NAME', 'Prefeitura Municipal de Rio Claro');
+define('ORG_NAME_SHORT', 'PMRC');
+define('ORG_ADDRESS', 'Av. João Portugal Baptista, 230');
+define('ORG_CITY', 'Rio Claro');
+define('ORG_STATE', 'RJ');
+define('ORG_ZIP', '27.460-000');
+define('ORG_EMAIL', 'pmrc@rioclaro.rj.gov.br');
+define('ORG_PHONE', '(22) 0000-0000'); // Adicionar telefone real
+define('ORG_WEBSITE', 'https://rioclaro.rj.gov.br');
+define('ORG_LOGO', '/assets/images/logo-rioclaro.png'); // Logo fictício
 
 // Database settings
 define('DB_HOST', $_ENV['DB_HOST'] ?? 'localhost');
@@ -40,8 +52,8 @@ define('MAIL_PORT', $_ENV['MAIL_PORT'] ?? 587);
 define('MAIL_USERNAME', $_ENV['MAIL_USERNAME'] ?? '');
 define('MAIL_PASSWORD', $_ENV['MAIL_PASSWORD'] ?? '');
 define('MAIL_ENCRYPTION', $_ENV['MAIL_ENCRYPTION'] ?? 'tls');
-define('MAIL_FROM_ADDRESS', $_ENV['MAIL_FROM_ADDRESS'] ?? 'noreply@esic.gov.br');
-define('MAIL_FROM_NAME', $_ENV['MAIL_FROM_NAME'] ?? 'Sistema E-SIC');
+define('MAIL_FROM_ADDRESS', $_ENV['MAIL_FROM_ADDRESS'] ?? 'noreply@rioclaro.rj.gov.br');
+define('MAIL_FROM_NAME', $_ENV['MAIL_FROM_NAME'] ?? 'E-SIC Rio Claro');
 
 // LAI specific settings
 define('DEFAULT_RESPONSE_DEADLINE', 20); // days

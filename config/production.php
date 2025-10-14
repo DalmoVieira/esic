@@ -19,8 +19,8 @@ return [
     ],
     
     'app' => [
-        'name' => 'E-SIC - Sistema de Informações ao Cidadão',
-        'url' => 'https://seudominio.com.br', // ALTERAR: Seu domínio
+        'name' => 'E-SIC - Prefeitura Municipal de Rio Claro',
+        'url' => 'https://rioclaro.rj.gov.br', // ALTERAR: Seu domínio
         'debug' => false, // SEMPRE false em produção
         'environment' => 'production',
         'timezone' => 'America/Sao_Paulo',
@@ -31,11 +31,11 @@ return [
         'smtp_host' => 'smtp.hostinger.com',
         'smtp_port' => 587,
         'smtp_secure' => 'tls',
-        'smtp_user' => 'noreply@seudominio.com.br', // ALTERAR: Seu email
+        'smtp_user' => 'noreply@rioclaro.rj.gov.br', // ALTERAR: Seu email
         'smtp_pass' => 'senha_do_email_aqui', // ALTERAR: Senha do email
-        'from_email' => 'noreply@seudominio.com.br',
-        'from_name' => 'E-SIC Sistema',
-        'reply_to' => 'contato@seudominio.com.br'
+        'from_email' => 'noreply@rioclaro.rj.gov.br',
+        'from_name' => 'E-SIC Rio Claro',
+        'reply_to' => 'pmrc@rioclaro.rj.gov.br'
     ],
     
     'security' => [
