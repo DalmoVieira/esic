@@ -1,10 +1,10 @@
 {
     "name": "Hostinger E-SIC",
-    "host": "ftp.seudominio.com.br",
+    "host": "ftp.rioclaro.gov.com.br",
     "protocol": "sftp",
     "port": 22,
-    "username": "u123456789",
-    "password": "SUA_SENHA_AQUI",
+    "username": "admin_admin_esic",
+    "password": "*I6PLB!+ocLHoHJb",
     "remotePath": "/public_html/esic/",
     "uploadOnSave": false,
     "useTempFile": false,
