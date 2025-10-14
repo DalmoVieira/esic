@@ -1,0 +1,39 @@
+# Configuração SSH para VS Code - Hostinger E-SIC
+# Arquivo: ~/.ssh/config (Windows: %USERPROFILE%\.ssh\config)
+
+# ===== HOSTINGER E-SIC =====
+Host hostinger-esic
+    HostName ssh.hostinger.com
+    User u123456789
+    Port 65002
+    PreferredAuthentications password
+    PubkeyAuthentication no
+    PasswordAuthentication yes
+    ServerAliveInterval 60
+    ServerAliveCountMax 3
+    StrictHostKeyChecking no
+
+# ===== HOSTINGER E-SIC (com chave SSH) =====
+Host hostinger-esic-key  
+    HostName ssh.hostinger.com
+    User u123456789
+    Port 65002
+    IdentityFile ~/.ssh/hostinger_rsa
+    PreferredAuthentications publickey
+    PubkeyAuthentication yes
+    PasswordAuthentication no
+    ServerAliveInterval 60
+    ServerAliveCountMax 3
+
+# ===== CONFIGURAÇÕES GERAIS =====
+Host *
+    ServerAliveInterval 60
+    ServerAliveCountMax 3
+    TCPKeepAlive yes
+    Compression yes
+
+# INSTRUÇÕES DE USO:
+# 1. Copie este conteúdo para o arquivo ~/.ssh/config
+# 2. Substitua "u123456789" pelo seu usuário da Hostinger  
+# 3. No VS Code: Ctrl+Shift+P → "Remote-SSH: Connect to Host"
+# 4. Selecione "hostinger-esic" e digite a senha

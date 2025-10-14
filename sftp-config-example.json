@@ -1,0 +1,41 @@
+{
+    "name": "Hostinger E-SIC",
+    "host": "ftp.seudominio.com.br",
+    "protocol": "sftp",
+    "port": 22,
+    "username": "u123456789",
+    "password": "SUA_SENHA_AQUI",
+    "remotePath": "/public_html/esic/",
+    "uploadOnSave": false,
+    "useTempFile": false,
+    "openSsh": false,
+    "downloadOnOpen": false,
+    "ignore": [
+        ".vscode/**",
+        ".git/**",
+        ".DS_Store",
+        "node_modules/**",
+        "*.log",
+        "logs/**",
+        "cache/**",
+        "test_*",
+        "debug*"
+    ],
+    "watcher": {
+        "files": "**/*",
+        "autoUpload": false,
+        "autoDelete": false
+    },
+    "remoteTimeOffsetInHours": 0,
+    "connectTimeout": 20000,
+    "interactiveAuth": true,
+    "algorithms": {
+        "kex": [
+            "ecdh-sha2-nistp256",
+            "ecdh-sha2-nistp384",
+            "ecdh-sha2-nistp521",
+            "diffie-hellman-group14-sha256",
+            "diffie-hellman-group16-sha512"
+        ]
+    }
+}
