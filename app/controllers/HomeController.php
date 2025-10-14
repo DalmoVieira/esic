@@ -1,6 +1,9 @@
 <?php
 
-require_once 'BaseController.php';
+namespace App\Controllers;
+
+use App\Core\Controller;
+use App\Models\Pedido;
 
 /**
  * Sistema E-SIC - Home Controller
@@ -10,8 +13,9 @@ require_once 'BaseController.php';
  * @author Sistema E-SIC
  * @version 1.0
  */
-
-class HomeController extends BaseController {
+class HomeController extends Controller
+{
+    private $pedidoModel;
     
     private $pedidoModel;
     

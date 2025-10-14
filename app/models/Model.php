@@ -139,12 +139,19 @@ abstract class Model {
      */
     public function count($filters = []) {
         // Se for chamada antiga com parâmetros individuais, converter para formato de filtros
-        if (func_num_args() > 1 || (func_num_args() === 1 && !is_array($filters))) {
+        $numArgs = func_num_args();
+        
+        if ($numArgs > 1 || ($numArgs === 1 && !is_array($filters))) {
             $column = $filters;
-            $operator = func_get_arg(1) ?? '=';
-            $value = func_get_arg(2) ?? $operator;
+            $operator = '=';
+            $value = null;
             
-            if (func_num_args() === 2) {
+            if ($numArgs >= 2) {
+                $operator = func_get_arg(1);
+            }
+            if ($numArgs >= 3) {
+                $value = func_get_arg(2);
+            } else if ($numArgs === 2) {
                 $value = $operator;
                 $operator = '=';
             }

@@ -1,6 +1,7 @@
 <?php
 
 require_once 'BaseController.php';
+require_once __DIR__ . '/../libraries/EmailService.php';
 
 /**
  * Sistema E-SIC - Pedido Controller
@@ -246,10 +247,10 @@ class PedidoController extends BaseController {
     private function enviarNotificacoes($pedido) {
         try {
             // Email para o solicitante
-            $this->emailService->enviarConfirmacaoPedido($pedido);
+            $this->emailService->sendPedidoConfirmacao($pedido);
             
             // Email para administradores
-            $this->emailService->notificarNovoPedido($pedido);
+            $this->emailService->notifyAdminNovoPedido($pedido);
             
         } catch (Exception $e) {
             error_log("Erro ao enviar notificações: " . $e->getMessage());
@@ -397,115 +398,3 @@ class PedidoController extends BaseController {
     }
 }
 
-/**
- * Serviço de Email (implementação básica)
- */
-class EmailService {
-    
-    private $config;
-    
-    public function __construct() {
-        $this->config = $this->getEmailConfig();
-    }
-    
-    /**
-     * Enviar confirmação de pedido
-     */
-    public function enviarConfirmacaoPedido($pedido) {
-        $assunto = "Confirmação de Pedido - Protocolo {$pedido['protocolo']}";
-        
-        $corpo = "
-        <h2>Pedido Registrado com Sucesso</h2>
-        
-        <p>Prezado(a) <strong>{$pedido['nome_solicitante']}</strong>,</p>
-        
-        <p>Seu pedido foi registrado com sucesso em nosso sistema.</p>
-        
-        <h3>Dados do Pedido:</h3>
-        <ul>
-            <li><strong>Protocolo:</strong> {$pedido['protocolo']}</li>
-            <li><strong>Assunto:</strong> {$pedido['assunto']}</li>
-            <li><strong>Data do Pedido:</strong> " . date('d/m/Y H:i', strtotime($pedido['created_at'])) . "</li>
-            <li><strong>Prazo de Resposta:</strong> " . date('d/m/Y', strtotime($pedido['prazo_resposta'])) . "</li>
-        </ul>
-        
-        <p>Você pode acompanhar o andamento do seu pedido através do nosso site, informando o protocolo e seu email.</p>
-        
-        <p>Em caso de dúvidas, entre em contato conosco.</p>
-        
-        <p>Atenciosamente,<br>
-        Equipe E-SIC</p>
-        ";
-        
-        return $this->enviarEmail($pedido['email_solicitante'], $assunto, $corpo);
-    }
-    
-    /**
-     * Notificar administradores sobre novo pedido
-     */
-    public function notificarNovoPedido($pedido) {
-        // Buscar emails de administradores
-        $db = Database::getInstance();
-        $admins = $db->select(
-            "SELECT email FROM usuarios WHERE nivel_acesso IN ('admin', 'gestor') AND ativo = 1"
-        );
-        
-        $assunto = "Novo Pedido E-SIC - Protocolo {$pedido['protocolo']}";
-        
-        $corpo = "
-        <h2>Novo Pedido Cadastrado</h2>
-        
-        <p>Um novo pedido foi cadastrado no sistema E-SIC:</p>
-        
-        <h3>Dados do Pedido:</h3>
-        <ul>
-            <li><strong>Protocolo:</strong> {$pedido['protocolo']}</li>
-            <li><strong>Solicitante:</strong> {$pedido['nome_solicitante']}</li>
-            <li><strong>Email:</strong> {$pedido['email_solicitante']}</li>
-            <li><strong>Assunto:</strong> {$pedido['assunto']}</li>
-            <li><strong>Unidade:</strong> {$pedido['unidade_responsavel']}</li>
-            <li><strong>Data:</strong> " . date('d/m/Y H:i', strtotime($pedido['created_at'])) . "</li>
-        </ul>
-        
-        <p>Acesse o sistema administrativo para gerenciar este pedido.</p>
-        ";
-        
-        foreach ($admins as $admin) {
-            $this->enviarEmail($admin['email'], $assunto, $corpo);
-        }
-    }
-    
-    /**
-     * Método básico para envio de email
-     */
-    private function enviarEmail($destinatario, $assunto, $corpo) {
-        // Implementação básica com headers
-        // Em produção, use PHPMailer ou similar
-        
-        $headers = [
-            'MIME-Version: 1.0',
-            'Content-type: text/html; charset=UTF-8',
-            "From: {$this->config['from_name']} <{$this->config['from_email']}>",
-            "Reply-To: {$this->config['from_email']}",
-            'X-Mailer: PHP/' . phpversion()
-        ];
-        
-        $success = mail($destinatario, $assunto, $corpo, implode("\r\n", $headers));
-        
-        if (!$success) {
-            error_log("Falha ao enviar email para: {$destinatario}");
-        }
-        
-        return $success;
-    }
-    
-    /**
-     * Obter configurações de email
-     */
-    private function getEmailConfig() {
-        return [
-            'from_email' => $_ENV['MAIL_FROM_ADDRESS'] ?? 'noreply@esic.gov.br',
-            'from_name' => $_ENV['MAIL_FROM_NAME'] ?? 'Sistema E-SIC'
-        ];
-    }
-}

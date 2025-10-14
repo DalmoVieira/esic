@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-SIC - Sistema Eletrônico de Informações ao Cidadão</title>
+    <meta name="description" content="Sistema Eletrônico de Informações ao Cidadão - Lei de Acesso à Informação">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary-color: #0d47a1;
+            --secondary-color: #1565c0;
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark hero-gradient">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="/">
+                <i class="bi bi-info-circle"></i> E-SIC
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/">Início</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="novo-pedido.php">Nova Solicitação</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="acompanhar.php">Acompanhar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="transparencia.php">Transparência</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="text-center mb-5">
+                    <h1 class="display-4 text-primary mb-3">Sistema E-SIC</h1>
+                    <p class="lead">Sistema Eletrônico de Informações ao Cidadão</p>
+                    <div class="alert alert-success">
+                        <i class="bi bi-check-circle"></i> Sistema funcionando - <?= date('d/m/Y H:i:s') ?>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card h-100 text-center card-hover">
+                            <div class="card-body">
+                                <i class="bi bi-plus-circle text-primary mb-3" style="font-size: 3rem;"></i>
+                                <h5 class="card-title">Nova Solicitação</h5>
+                                <p class="card-text">Faça uma nova solicitação de informações públicas conforme a Lei de Acesso à Informação (LAI).</p>
+                                <a href="novo-pedido.php" class="btn btn-primary">
+                                    <i class="bi bi-plus"></i> Fazer Solicitação
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card h-100 text-center card-hover">
+                            <div class="card-body">
+                                <i class="bi bi-search text-info mb-3" style="font-size: 3rem;"></i>
+                                <h5 class="card-title">Acompanhar Pedido</h5>
+                                <p class="card-text">Consulte o andamento da sua solicitação usando o número do protocolo e seu CPF ou CNPJ.</p>
+                                <a href="acompanhar.php" class="btn btn-outline-primary">
+                                    <i class="bi bi-search"></i> Acompanhar
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card h-100 text-center card-hover">
+                            <div class="card-body">
+                                <i class="bi bi-graph-up text-success mb-3" style="font-size: 3rem;"></i>
+                                <h5 class="card-title">Transparência Pública</h5>
+                                <p class="card-text">Acesse dados de transparência pública, relatórios e estatísticas do portal.</p>
+                                <a href="transparencia.php" class="btn btn-outline-success">
+                                    <i class="bi bi-graph-up"></i> Ver Dados
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Estatísticas -->
+                <div class="row mt-5">
+                    <div class="col-12">
+                        <h3 class="text-center mb-4">Estatísticas do Sistema</h3>
+                    </div>
+                    <div class="col-md-3 col-6 text-center mb-3">
+                        <div class="card card-hover">
+                            <div class="card-body">
+                                <h4 class="text-primary">150</h4>
+                                <p class="mb-0 small">Pedidos Ativos</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6 text-center mb-3">
+                        <div class="card card-hover">
+                            <div class="card-body">
+                                <h4 class="text-success">95%</h4>
+                                <p class="mb-0 small">Taxa de Atendimento</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6 text-center mb-3">
+                        <div class="card card-hover">
+                            <div class="card-body">
+                                <h4 class="text-info">12</h4>
+                                <p class="mb-0 small">Dias Médios</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6 text-center mb-3">
+                        <div class="card card-hover">
+                            <div class="card-body">
+                                <h4 class="text-warning">5</h4>
+                                <p class="mb-0 small">Recursos Ativos</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Informações Legais -->
+                <div class="row mt-5">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5><i class="bi bi-info-circle text-primary"></i> Lei de Acesso à Informação</h5>
+                                <p class="small mb-0">
+                                    A Lei nº 12.527/2011 regulamenta o direito constitucional de acesso às informações públicas. 
+                                    Este sistema permite que qualquer pessoa, física ou jurídica, solicite informações aos órgãos públicos.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5><i class="bi bi-clock text-info"></i> Prazos de Resposta</h5>
+                                <ul class="small mb-0">
+                                    <li>Resposta: até 20 dias (prorrogáveis por mais 10)</li>
+                                    <li>Recurso 1ª instância: até 10 dias</li>
+                                    <li>Recurso 2ª instância: até 15 dias</li>
+                                    <li>Recurso ao CGU: até 20 dias</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Status do Sistema -->
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="card bg-light">
+                            <div class="card-body text-center">
+                                <h6 class="mb-3">Status do Sistema</h6>
+                                <span class="badge bg-success me-2">
+                                    <i class="bi bi-check-circle"></i> Operacional
+                                </span>
+                                <small class="text-muted">
+                                    Última atualização: <?= date('d/m/Y H:i:s') ?> | 
+                                    PHP <?= phpversion() ?> | 
+                                    <?= $_SERVER['SERVER_SOFTWARE'] ?? 'Apache/PHP' ?>
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h6><i class="bi bi-info-circle"></i> Sistema E-SIC</h6>
+                    <p class="small mb-0">Sistema Eletrônico de Informações ao Cidadão</p>
+                    <small class="text-muted">Lei nº 12.527/2011</small>
+                </div>
+                <div class="col-md-4">
+                    <h6><i class="bi bi-telephone"></i> Contato</h6>
+                    <p class="small mb-0">
+                        Telefone: (11) 1234-5678<br>
+                        Email: esic@exemplo.gov.br<br>
+                        Horário: 8h às 17h (dias úteis)
+                    </p>
+                </div>
+                <div class="col-md-4">
+                    <h6><i class="bi bi-link-45deg"></i> Links Úteis</h6>
+                    <ul class="list-unstyled small">
+                        <li><a href="#" class="text-white-50">Manual do E-SIC</a></li>
+                        <li><a href="#" class="text-white-50">Perguntas Frequentes</a></li>
+                        <li><a href="#" class="text-white-50">Legislação</a></li>
+                        <li><a href="#" class="text-white-50">Fale Conosco</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-3">
+            <div class="text-center">
+                <small>&copy; 2025 Sistema E-SIC. Desenvolvido para transparência pública e acesso à informação.</small>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Animações suaves -->
+    <script>
+        // Animação suave para cards
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.card-hover');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'all 0.5s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+</html>

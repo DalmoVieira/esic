@@ -58,23 +58,21 @@ class AuthController extends BaseController
             }
 
             // Tentar autenticar
-            $user = $this->auth->attempt($email, $password, $remember);
+            $result = $this->auth->attempt($email, $password, $remember);
             
-            if (!$user) {
+            if (!$result['success']) {
                 $this->logFailedLogin($email);
-                throw new Exception('Credenciais inválidas');
+                throw new Exception($result['message']);
             }
 
-            // Verificar se usuário está ativo
-            if (!$user['ativo']) {
-                throw new Exception('Usuário inativo. Entre em contato com o administrador.');
-            }
+            // Obter dados do usuário do resultado
+            $user = $result['user'];
 
             // Log de sucesso
             $this->logSuccessfulLogin($user);
 
-            // Redirecionar baseado no tipo de usuário
-            if (in_array($user['tipo'], ['administrador', 'operador'])) {
+            // Redirecionar baseado no nível de acesso do usuário
+            if (in_array($user['nivel_acesso'], ['admin', 'operador'])) {
                 $redirectUrl = $_SESSION['intended_url'] ?? '/admin/dashboard';
             } else {
                 $redirectUrl = $_SESSION['intended_url'] ?? '/';

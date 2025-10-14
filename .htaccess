@@ -1,0 +1,23 @@
+RewriteEngine On
+
+# Redirecionar todas as requisições que não são arquivos ou diretórios para index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php [QSA,L]
+
+# Deny access to sensitive files
+<Files "*.php~">
+    Deny from all
+</Files>
+<Files ".env">
+    Deny from all
+</Files>
+<Files "composer.*">
+    Deny from all
+</Files>
+
+# Disable directory browsing
+Options -Indexes
+
+# Set default index file
+DirectoryIndex index.php index.html

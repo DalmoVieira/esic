@@ -122,6 +122,45 @@ class Auth {
     }
     
     /**
+     * Alias para o método login (compatibilidade)
+     */
+    public function attempt($email, $senha, $lembrar = false) {
+        return $this->login($email, $senha, $lembrar);
+    }
+    
+    /**
+     * Realiza login direto por ID do usuário (para OAuth)
+     */
+    public function loginById($userId) {
+        try {
+            $db = Database::getInstance();
+            
+            // Buscar usuário por ID
+            $user = $db->selectOne(
+                "SELECT * FROM usuarios WHERE id = ? AND ativo = 1",
+                [$userId]
+            );
+            
+            if (!$user) {
+                throw new Exception('Usuário não encontrado ou inativo');
+            }
+            
+            // Fazer login usando dados do usuário
+            $this->handleSuccessfulLogin($user, false);
+            
+            return [
+                'success' => true,
+                'user' => $this->getUserPublicData($user),
+                'token' => $this->generateJWT($user)
+            ];
+            
+        } catch (Exception $e) {
+            error_log("LoginById Error: " . $e->getMessage());
+            throw $e;
+        }
+    }
+    
+    /**
      * Trata login bem-sucedido
      */
     public function handleSuccessfulLogin($user, $lembrar = false) {
@@ -137,6 +176,8 @@ class Auth {
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['user_email'] = $user['email'];
         $_SESSION['user_nivel'] = $user['nivel_acesso'];
+        $_SESSION['user_authenticated'] = true;
+        $_SESSION['expires_at'] = time() + (8 * 60 * 60); // 8 horas
         
         // Cookie "lembrar-me" (opcional)
         if ($lembrar) {
@@ -394,87 +435,25 @@ class Auth {
     public function verifyCSRFToken($token) {
         return isset($_SESSION['csrf_token']) && hash_equals($_SESSION['csrf_token'], $token);
     }
+    
+    /**
+     * Obter usuário por ID
+     */
+    public function getUserById($userId) {
+        try {
+            $db = Database::getInstance();
+            return $db->selectOne(
+                "SELECT id, nome, email, nivel_acesso, ativo, ultimo_login, unidade, cargo FROM usuarios WHERE id = ? AND ativo = 1",
+                [$userId]
+            );
+        } catch (Exception $e) {
+            error_log("Auth Error - getUserById: " . $e->getMessage());
+            return null;
+        }
+    }
 }
 
-/**
- * Middleware de Autenticação
- */
-class AuthMiddleware {
-    
-    /**
-     * Requer usuário logado
-     */
-    public static function requireAuth() {
-        $auth = Auth::getInstance();
-        
-        if (!$auth->check()) {
-            if (self::isApiRequest()) {
-                http_response_code(401);
-                echo json_encode(['error' => 'Não autenticado']);
-                exit;
-            } else {
-                header('Location: /admin/login');
-                exit;
-            }
-        }
-        
-        return $auth->user();
-    }
-    
-    /**
-     * Requer nível de acesso específico
-     */
-    public static function requireRole($roles) {
-        $user = self::requireAuth();
-        $auth = Auth::getInstance();
-        
-        if (!$auth->hasRole($roles)) {
-            if (self::isApiRequest()) {
-                http_response_code(403);
-                echo json_encode(['error' => 'Acesso negado']);
-                exit;
-            } else {
-                header('Location: /admin/dashboard?error=access_denied');
-                exit;
-            }
-        }
-        
-        return $user;
-    }
-    
-    /**
-     * Requer admin
-     */
-    public static function requireAdmin() {
-        return self::requireRole(['admin']);
-    }
-    
-    /**
-     * Verifica CSRF em formulários
-     */
-    public static function verifyCSRF() {
-        $auth = Auth::getInstance();
-        $token = $_POST['_token'] ?? $_GET['_token'] ?? '';
-        
-        if (!$auth->verifyCSRFToken($token)) {
-            if (self::isApiRequest()) {
-                http_response_code(403);
-                echo json_encode(['error' => 'Token CSRF inválido']);
-                exit;
-            } else {
-                die('Token CSRF inválido');
-            }
-        }
-    }
-    
-    /**
-     * Verifica se é requisição de API
-     */
-    private static function isApiRequest() {
-        return strpos($_SERVER['REQUEST_URI'], '/api/') === 0 || 
-               (isset($_SERVER['HTTP_ACCEPT']) && strpos($_SERVER['HTTP_ACCEPT'], 'application/json') !== false);
-    }
-}
+
 
 /**
  * Helper para acesso rápido
@@ -497,220 +476,3 @@ function isLoggedIn() {
     return auth()->check();
 }
 
-/**
- * OAuth Handler para Google e Gov.br
- */
-class OAuthHandler {
-    
-    private $providers = [];
-    
-    public function __construct() {
-        $this->setupProviders();
-    }
-    
-    private function setupProviders() {
-        // Google OAuth
-        $this->providers['google'] = [
-            'client_id' => $_ENV['GOOGLE_CLIENT_ID'] ?? '',
-            'client_secret' => $_ENV['GOOGLE_CLIENT_SECRET'] ?? '',
-            'redirect_uri' => $_ENV['GOOGLE_REDIRECT_URI'] ?? '',
-            'auth_url' => 'https://accounts.google.com/o/oauth2/auth',
-            'token_url' => 'https://oauth2.googleapis.com/token',
-            'user_info_url' => 'https://www.googleapis.com/oauth2/v2/userinfo'
-        ];
-        
-        // Gov.br OAuth
-        $this->providers['govbr'] = [
-            'client_id' => $_ENV['GOVBR_CLIENT_ID'] ?? '',
-            'client_secret' => $_ENV['GOVBR_CLIENT_SECRET'] ?? '',
-            'redirect_uri' => $_ENV['GOVBR_REDIRECT_URI'] ?? '',
-            'environment' => $_ENV['GOVBR_ENVIRONMENT'] ?? 'homologacao',
-            'auth_url' => ($_ENV['GOVBR_ENVIRONMENT'] ?? 'homologacao') === 'producao' 
-                ? 'https://sso.acesso.gov.br/authorize'
-                : 'https://sso.staging.acesso.gov.br/authorize',
-            'token_url' => ($_ENV['GOVBR_ENVIRONMENT'] ?? 'homologacao') === 'producao'
-                ? 'https://sso.acesso.gov.br/token'
-                : 'https://sso.staging.acesso.gov.br/token'
-        ];
-    }
-    
-    /**
-     * Gera URL de autorização OAuth
-     */
-    public function getAuthUrl($provider, $state = null) {
-        if (!isset($this->providers[$provider])) {
-            throw new Exception("Provider não suportado: {$provider}");
-        }
-        
-        $config = $this->providers[$provider];
-        $state = $state ?: bin2hex(random_bytes(16));
-        
-        $params = [
-            'client_id' => $config['client_id'],
-            'redirect_uri' => $config['redirect_uri'],
-            'response_type' => 'code',
-            'scope' => $provider === 'google' ? 'openid email profile' : 'openid email profile cpf',
-            'state' => $state
-        ];
-        
-        return $config['auth_url'] . '?' . http_build_query($params);
-    }
-    
-    /**
-     * Processa callback OAuth
-     */
-    public function handleCallback($provider, $code, $state) {
-        if (!isset($this->providers[$provider])) {
-            throw new Exception("Provider não suportado: {$provider}");
-        }
-        
-        // Trocar código por token
-        $tokenData = $this->exchangeCodeForToken($provider, $code);
-        
-        // Obter dados do usuário
-        $userData = $this->getUserInfo($provider, $tokenData['access_token']);
-        
-        // Processar login OAuth
-        return $this->processOAuthLogin($provider, $userData);
-    }
-    
-    private function exchangeCodeForToken($provider, $code) {
-        $config = $this->providers[$provider];
-        
-        $data = [
-            'client_id' => $config['client_id'],
-            'client_secret' => $config['client_secret'],
-            'code' => $code,
-            'grant_type' => 'authorization_code',
-            'redirect_uri' => $config['redirect_uri']
-        ];
-        
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $config['token_url']);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, ['Accept: application/json']);
-        
-        $response = curl_exec($ch);
-        curl_close($ch);
-        
-        return json_decode($response, true);
-    }
-    
-    private function getUserInfo($provider, $accessToken) {
-        $config = $this->providers[$provider];
-        
-        if ($provider === 'google') {
-            $url = $config['user_info_url'] . '?access_token=' . $accessToken;
-        } else {
-            // Gov.br usa endpoint diferente
-            $url = str_replace('/token', '/userinfo', $config['token_url']);
-        }
-        
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, [
-            'Authorization: Bearer ' . $accessToken,
-            'Accept: application/json'
-        ]);
-        
-        $response = curl_exec($ch);
-        curl_close($ch);
-        
-        return json_decode($response, true);
-    }
-    
-    private function processOAuthLogin($provider, $userData) {
-        $db = Database::getInstance();
-        $email = $userData['email'] ?? '';
-        
-        if (!$email) {
-            throw new Exception("Email não fornecido pelo provider OAuth");
-        }
-        
-        // Buscar usuário existente
-        $user = $db->selectOne("SELECT * FROM usuarios WHERE email = ?", [$email]);
-        
-        if (!$user) {
-            // Criar novo usuário (apenas se permitido)
-            throw new Exception("Usuário não cadastrado no sistema");
-        }
-        
-        // Atualizar ID do provider OAuth
-        $oauthField = $provider === 'google' ? 'google_id' : 'govbr_id';
-        $oauthId = $userData['id'] ?? $userData['sub'] ?? '';
-        
-        if ($oauthId) {
-            $db->execute(
-                "UPDATE usuarios SET {$oauthField} = ? WHERE id = ?",
-                [$oauthId, $user['id']]
-            );
-        }
-        
-        // Fazer login simulando credenciais válidas
-        $auth = Auth::getInstance();
-        $auth->handleSuccessfulLogin($user, false);
-        
-        return [
-            'success' => true,
-            'message' => 'Login OAuth realizado com sucesso',
-            'user' => $auth->getUserPublicData($user),
-            'token' => $auth->generateJWT($user)
-        ];
-    }
-    
-    /**
-     * Tentativa de autenticação
-     */
-    public function attempt($email, $password, $remember = false) {
-        $loginResult = $this->login($email, $password, $remember);
-        
-        if (isset($loginResult['success']) && $loginResult['success']) {
-            // Recarregar o usuário para garantir que está na propriedade
-            return $this->user;
-        }
-        
-        return false;
-    }
-    
-    /**
-     * Login por ID do usuário
-     */
-    public function loginById($userId) {
-        try {
-            $db = Database::getInstance();
-            $user = $db->selectOne(
-                "SELECT * FROM usuarios WHERE id = ? AND ativo = 1",
-                [$userId]
-            );
-            
-            if ($user) {
-                $this->handleSuccessfulLogin($user, false);
-                return true;
-            }
-            
-            return false;
-        } catch (Exception $e) {
-            error_log("Auth Error: " . $e->getMessage());
-            return false;
-        }
-    }
-    
-    /**
-     * Obter usuário por ID
-     */
-    public function getUserById($userId) {
-        try {
-            $db = Database::getInstance();
-            return $db->selectOne(
-                "SELECT id, nome, email, role, status FROM usuarios WHERE id = ?",
-                [$userId]
-            );
-        } catch (Exception $e) {
-            error_log("Auth Error: " . $e->getMessage());
-            return null;
-        }
-    }
-}

@@ -31,10 +31,10 @@ class AuthMiddleware
         
         // Verificar se usuário ainda existe e está ativo
         try {
-            $auth = new Auth();
+            $auth = Auth::getInstance();
             $user = $auth->getUserById($_SESSION['user_id']);
             
-            if (!$user || $user['status'] !== 'ativo') {
+            if (!$user || $user['ativo'] != 1) {
                 self::destroySession();
                 self::redirectToLogin();
                 return;
@@ -43,7 +43,7 @@ class AuthMiddleware
             // Atualizar dados do usuário na sessão
             $_SESSION['user_name'] = $user['nome'];
             $_SESSION['user_email'] = $user['email'];
-            $_SESSION['user_role'] = $user['role'];
+            $_SESSION['user_role'] = $user['nivel_acesso'];
             
         } catch (Exception $e) {
             error_log("Erro na verificação de autenticação: " . $e->getMessage());
@@ -61,7 +61,7 @@ class AuthMiddleware
         self::requireAuth();
         
         // Verificar se é administrador
-        if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'admin') {
+        if (!isset($_SESSION['user_role']) || !in_array($_SESSION['user_role'], ['admin', 'administrador'])) {
             http_response_code(403);
             
             if (self::isApiRequest()) {
@@ -108,12 +108,12 @@ class AuthMiddleware
         $jwt = $matches[1];
         
         try {
-            $auth = new Auth();
+            $auth = Auth::getInstance();
             $payload = $auth->verifyJWT($jwt);
             
             // Definir dados do usuário na requisição
             $_SESSION['api_user_id'] = $payload['user_id'];
-            $_SESSION['api_user_role'] = $payload['role'];
+            $_SESSION['api_user_role'] = $payload['nivel'];
             
         } catch (Exception $e) {
             Response::json(['error' => 'Token inválido: ' . $e->getMessage()], 401);
