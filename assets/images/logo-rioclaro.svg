@@ -1,27 +1,50 @@
-<!-- Logo fictício SVG para Prefeitura de Rio Claro -->
-<svg xmlns="http://www.w3.org/2000/svg" width="120" height="80" viewBox="0 0 120 80">
-  <!-- Fundo azul representando o céu/água -->
-  <rect width="120" height="80" fill="#0d47a1"/>
+<!-- Logo Profissional da Prefeitura de Rio Claro - RJ -->
+<svg xmlns="http://www.w3.org/2000/svg" width="150" height="60" viewBox="0 0 150 60">
+  <!-- Fundo com gradiente azul institucional -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#0d47a1;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1565c0;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="1" dy="1" stdDeviation="1" flood-color="#000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
   
-  <!-- Montanhas em verde -->
-  <path d="M0 50 L30 30 L60 40 L90 25 L120 35 L120 80 L0 80 Z" fill="#2e7d32"/>
+  <!-- Fundo principal -->
+  <rect width="150" height="60" rx="8" fill="url(#bgGradient)"/>
   
-  <!-- Cidade/prédios -->
-  <rect x="20" y="45" width="8" height="15" fill="#ffffff"/>
-  <rect x="35" y="40" width="10" height="20" fill="#ffffff"/>
-  <rect x="50" y="42" width="8" height="18" fill="#ffffff"/>
-  <rect x="65" y="38" width="12" height="22" fill="#ffffff"/>
-  <rect x="80" y="43" width="9" height="17" fill="#ffffff"/>
+  <!-- Escudo municipal -->
+  <g transform="translate(15, 8)">
+    <!-- Base do escudo -->
+    <path d="M0 22 Q0 15 8 15 L22 15 Q30 15 30 22 L30 35 Q30 42 22 42 L8 42 Q0 42 0 35 Z" 
+          fill="#ffffff" filter="url(#shadow)"/>
+    
+    <!-- Montanhas no escudo -->
+    <path d="M3 32 L8 25 L15 28 L22 23 L27 26 L27 39 L3 39 Z" fill="#2e7d32"/>
+    
+    <!-- Rio/água -->
+    <path d="M3 36 Q15 34 27 36 L27 39 L3 39 Z" fill="#1976d2"/>
+    
+    <!-- Cruz ou símbolo central -->
+    <rect x="13" y="18" width="4" height="12" fill="#0d47a1"/>
+    <rect x="9" y="22" width="12" height="4" fill="#0d47a1"/>
+  </g>
   
-  <!-- Texto "RC" -->
-  <text x="60" y="25" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#ffffff">RC</text>
+  <!-- Texto "PREFEITURA" -->
+  <text x="55" y="18" font-family="Arial, sans-serif" font-size="10" 
+        font-weight="bold" fill="#ffffff">PREFEITURA</text>
   
-  <!-- Sol -->
-  <circle cx="95" cy="15" r="8" fill="#ffc107"/>
+  <!-- Texto "RIO CLARO" -->
+  <text x="55" y="32" font-family="Arial, sans-serif" font-size="14" 
+        font-weight="bold" fill="#ffffff">RIO CLARO</text>
   
-  <!-- Raios do sol -->
-  <line x1="95" y1="2" x2="95" y2="6" stroke="#ffc107" stroke-width="1"/>
-  <line x1="95" y1="24" x2="95" y2="28" stroke="#ffc107" stroke-width="1"/>
-  <line x1="82" y1="15" x2="86" y2="15" stroke="#ffc107" stroke-width="1"/>
-  <line x1="104" y1="15" x2="108" y2="15" stroke="#ffc107" stroke-width="1"/>
+  <!-- Texto "RJ" -->
+  <text x="55" y="45" font-family="Arial, sans-serif" font-size="9" 
+        fill="#e3f2fd">RJ</text>
+  
+  <!-- Elemento decorativo -->
+  <circle cx="135" cy="30" r="8" fill="#ffffff" opacity="0.2"/>
+  <circle cx="135" cy="30" r="5" fill="#ffffff" opacity="0.4"/>
+  <circle cx="135" cy="30" r="2" fill="#ffffff"/>
 </svg>

@@ -2,6 +2,13 @@
 /**
  * Configuração de Produção - E-SIC
  * IMPORTANTE: Altere as credenciais antes do deploy!
+ * 
+ * ⚠️  ATENÇÃO: A Prefeitura de Rio Claro já possui sistema E-SIC oficial:
+ *     https://gpi-services.cloud.el.com.br/rj-rioclaro-pm/e-sic/
+ * 
+ * 📞 Coordenar implementação com:
+ *     Telefone: (24) 99828-1427
+ *     Email: pmrc@rioclaro.rj.gov.br
  */
 
 return [

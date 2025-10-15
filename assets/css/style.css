@@ -1,0 +1,417 @@
+/* E-SIC Rio Claro - Estilos Customizados */
+
+:root {
+    --primary-color: #0d47a1;
+    --secondary-color: #1565c0;
+    --accent-color: #1976d2;
+    --success-color: #2e7d32;
+    --warning-color: #f57c00;
+    --danger-color: #d32f2f;
+    --light-bg: #f8f9fa;
+    --white: #ffffff;
+    --text-dark: #212529;
+    --text-muted: #6c757d;
+    --border-color: #dee2e6;
+    --shadow-sm: 0 2px 4px rgba(0,0,0,0.1);
+    --shadow-md: 0 4px 8px rgba(0,0,0,0.12);
+    --shadow-lg: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+/* Gradientes */
+.hero-gradient {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+}
+
+.subtle-gradient {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+}
+
+/* Cards com efeitos */
+.card-hover {
+    transition: all 0.3s ease;
+    border: none;
+    box-shadow: var(--shadow-sm);
+}
+
+.card-hover:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.card-stats {
+    background: linear-gradient(45deg, var(--accent-color), var(--primary-color));
+    color: white;
+    border-radius: 15px;
+}
+
+/* Navbar customizada */
+.navbar-custom {
+    background: var(--hero-gradient);
+    padding: 1rem 0;
+    box-shadow: var(--shadow-md);
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.navbar-brand:hover {
+    color: white;
+    text-decoration: none;
+}
+
+.navbar-brand img {
+    transition: transform 0.3s ease;
+    max-height: 32px;
+    width: auto;
+}
+
+.navbar-brand img:hover {
+    transform: scale(1.05);
+}
+
+/* Botões aprimorados */
+.btn-custom {
+    border-radius: 8px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.btn-primary-custom {
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    color: white;
+}
+
+.btn-primary-custom:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
+}
+
+.btn-outline-custom {
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    background: transparent;
+}
+
+.btn-outline-custom:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Alertas melhorados */
+.alert-custom {
+    border: none;
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    box-shadow: var(--shadow-sm);
+}
+
+.alert-info-custom {
+    background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+    color: #0d47a1;
+    border-left: 4px solid var(--primary-color);
+}
+
+.alert-success-custom {
+    background: linear-gradient(135deg, #e8f5e8, #c8e6c9);
+    color: var(--success-color);
+    border-left: 4px solid var(--success-color);
+}
+
+.alert-warning-custom {
+    background: linear-gradient(135deg, #fff3e0, #ffcc02);
+    color: var(--warning-color);
+    border-left: 4px solid var(--warning-color);
+}
+
+/* Formulários */
+.form-control-custom {
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-control-custom:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(13, 71, 161, 0.25);
+}
+
+.form-label-custom {
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 0.5rem;
+}
+
+/* Ícones aprimorados */
+.icon-lg {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.icon-md {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.icon-primary {
+    color: var(--primary-color);
+}
+
+.icon-success {
+    color: var(--success-color);
+}
+
+.icon-warning {
+    color: var(--warning-color);
+}
+
+.icon-info {
+    color: var(--accent-color);
+}
+
+/* Layout responsivo */
+.container-custom {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* Header da página */
+.page-header {
+    background: var(--subtle-gradient);
+    padding: 2rem 0;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.page-title {
+    color: var(--primary-color);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.page-subtitle {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+}
+
+/* Footer */
+.footer-custom {
+    background: var(--primary-color);
+    color: white;
+    padding: 2rem 0;
+    margin-top: 3rem;
+}
+
+.footer-link {
+    color: #bbdefb;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-link:hover {
+    color: white;
+}
+
+/* Tabelas */
+.table-custom {
+    box-shadow: var(--shadow-sm);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.table-custom thead {
+    background: var(--primary-color);
+    color: white;
+}
+
+.table-custom tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+/* Status badges */
+.badge-status {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 600;
+}
+
+.badge-pendente {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.badge-andamento {
+    background: #d1ecf1;
+    color: #0c5460;
+}
+
+.badge-concluido {
+    background: #d4edda;
+    color: #155724;
+}
+
+.badge-negado {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+/* Animações */
+.fade-in {
+    animation: fadeIn 0.6s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.slide-up {
+    animation: slideUp 0.5s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Responsividade melhorada */
+@media (max-width: 768px) {
+    .card-hover {
+        margin-bottom: 1rem;
+    }
+    
+    .btn-custom {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+    
+    .navbar-brand {
+        font-size: 1.2rem;
+    }
+    
+    .icon-lg {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .container-custom {
+        padding: 0 0.5rem;
+    }
+    
+    .page-header {
+        padding: 1rem 0;
+    }
+    
+    .page-title {
+        font-size: 1.5rem;
+    }
+}
+
+/* Loading spinner */
+.spinner-custom {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Tooltip customizado */
+.tooltip-custom {
+    position: relative;
+    cursor: help;
+}
+
+.tooltip-custom:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--text-dark);
+    color: white;
+    padding: 0.5rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    z-index: 1000;
+}
+
+/* Breadcrumb personalizado */
+.breadcrumb-custom {
+    background: transparent;
+    padding: 0;
+    margin-bottom: 1rem;
+}
+
+.breadcrumb-custom .breadcrumb-item + .breadcrumb-item::before {
+    content: "›";
+    color: var(--text-muted);
+}
+
+.breadcrumb-custom .breadcrumb-item.active {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+/* Utilities */
+.text-primary-custom {
+    color: var(--primary-color) !important;
+}
+
+.bg-primary-custom {
+    background-color: var(--primary-color) !important;
+}
+
+.border-primary-custom {
+    border-color: var(--primary-color) !important;
+}
+
+.shadow-custom {
+    box-shadow: var(--shadow-md) !important;
+}
+
+.rounded-custom {
+    border-radius: 12px !important;
+}
+
+.mt-custom {
+    margin-top: 2rem !important;
+}
+
+.mb-custom {
+    margin-bottom: 2rem !important;
+}
+
+.p-custom {
+    padding: 1.5rem !important;
+}

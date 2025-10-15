@@ -20,7 +20,7 @@ define('APP_URL', $_ENV['APP_URL'] ?? 'http://localhost');
 // Organization settings - Prefeitura de Rio Claro
 define('ORG_NAME', 'Prefeitura Municipal de Rio Claro');
 define('ORG_NAME_SHORT', 'PMRC');
-define('ORG_ADDRESS', 'Av. João Portugal Baptista, 230');
+define('ORG_ADDRESS', 'Av. João Baptista Portugal, 230');
 define('ORG_CITY', 'Rio Claro');
 define('ORG_STATE', 'RJ');
 define('ORG_ZIP', '27.460-000');
