@@ -112,40 +112,93 @@ Guia resumido passo a passo: **[CHECKLIST_DEPLOY.md](CHECKLIST_DEPLOY.md)**
 
 ## 🚀 Instalação
 
-### 1. Clone o Repositório
+### Guias de Instalação por Sistema Operacional
+
+#### 🪟 **Windows (XAMPP)**
+
+**1. Clone o Repositório**
 ```bash
 git clone https://github.com/DalmoVieira/esic.git
 cd esic
 ```
 
-### 2. Configure o Ambiente
+**2. Configure o Ambiente**
 1. **Instale o XAMPP** - [Download aqui](https://www.apachefriends.org)
 2. **Copie o projeto** para `c:\xampp\htdocs\esic\`
 3. **Inicie os serviços** Apache e MySQL no XAMPP
 
-### 3. Configure o Banco de Dados
+**3. Configure o Banco de Dados**
 1. Acesse o **phpMyAdmin**: [http://localhost/phpmyadmin](http://localhost/phpmyadmin)
 2. Crie um banco chamado `esic_db`
-3. Execute o script de criação:
-   ```sql
-   # Execute o arquivo: database/esic_schema.sql
-   ```
+3. Execute o script: `database/schema_novo.sql`
 
-### 4. Configure a Aplicação
+**4. Configure a Aplicação**
 ```php
-// Edite: config/database.php
-return [
-    'host' => 'localhost',
-    'dbname' => 'esic_db',
-    'username' => 'root',
-    'password' => '',
-    'charset' => 'utf8mb4'
-];
+// Edite: app/config/Database.php
+private $host = "localhost";
+private $db_name = "esic_db";
+private $username = "root";
+private $password = "";
 ```
 
-### 5. Teste a Instalação
+**5. Teste a Instalação**
 - **Acesse:** [http://localhost/esic/](http://localhost/esic/)
-- **Diagnóstico:** [http://localhost/esic/diagnostico.php](http://localhost/esic/diagnostico.php)
+
+---
+
+#### 🍎 **macOS (Homebrew)**
+
+**Instalação Automática** (Recomendado):
+```bash
+# Baixar e executar script
+curl -O https://raw.githubusercontent.com/DalmoVieira/esic/main/setup-macos.sh
+chmod +x setup-macos.sh
+./setup-macos.sh
+```
+
+**Instalação Manual:**
+```bash
+# 1. Instalar Homebrew
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# 2. Instalar dependências
+brew install php@8.2 mysql httpd
+
+# 3. Clonar projeto
+git clone https://github.com/DalmoVieira/esic.git ~/Projects/esic
+
+# 4. Configurar (ver documentação completa)
+```
+
+📖 **Documentação completa:** [SETUP_MACOS.md](SETUP_MACOS.md)
+
+---
+
+#### 🐧 **Linux (Ubuntu/Debian)**
+
+**Instalação Automática** (Recomendado):
+```bash
+# Baixar e executar script
+wget https://raw.githubusercontent.com/DalmoVieira/esic/main/deploy.sh
+chmod +x deploy.sh
+sudo ./deploy.sh
+```
+
+**Instalação Manual:**
+```bash
+# 1. Atualizar sistema
+sudo apt update && sudo apt upgrade -y
+
+# 2. Instalar dependências
+sudo apt install -y apache2 php8.2 mysql-server php8.2-mysql php8.2-curl php8.2-mbstring
+
+# 3. Clonar projeto
+git clone https://github.com/DalmoVieira/esic.git /var/www/esic
+
+# 4. Configurar (ver documentação completa)
+```
+
+📖 **Documentação completa:** [DEPLOY_PRODUCAO.md](DEPLOY_PRODUCAO.md)
 
 ## 📁 Estrutura do Projeto
 
