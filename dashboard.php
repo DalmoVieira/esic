@@ -41,12 +41,12 @@ if (empty($tipo_usuario)) {
                     </li>
                     <?php if ($tipo_usuario !== 'anonimo'): ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="novo-pedido.php?tipo=<?= $tipo_usuario ?>">
-                            <i class="bi bi-plus-circle"></i> Nova Solicitação
+                        <a class="nav-link" href="novo-pedido-v2.php?tipo=<?= $tipo_usuario ?>">
+                            <i class="bi bi-plus-circle"></i> Novo Pedido
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="acompanhar.php?tipo=<?= $tipo_usuario ?>">
+                        <a class="nav-link" href="acompanhar-v2.php?tipo=<?= $tipo_usuario ?>">
                             <i class="bi bi-search"></i> Acompanhar
                         </a>
                     </li>
@@ -166,7 +166,7 @@ if (empty($tipo_usuario)) {
                         <i class="bi bi-plus-circle text-primary mb-3" style="font-size: 3rem;"></i>
                         <h5 class="card-title">Nova Solicitação</h5>
                         <p class="card-text">Faça uma nova solicitação de informações públicas conforme a Lei de Acesso à Informação (LAI).</p>
-                        <a href="novo-pedido.php?tipo=<?= $tipo_usuario ?>" class="btn btn-primary">
+                        <a href="novo-pedido-v2.php?tipo=<?= $tipo_usuario ?>" class="btn btn-primary">
                             <i class="bi bi-plus"></i> Fazer Solicitação
                         </a>
                     </div>
@@ -178,7 +178,7 @@ if (empty($tipo_usuario)) {
                         <i class="bi bi-search text-info mb-3" style="font-size: 3rem;"></i>
                         <h5 class="card-title">Acompanhar Pedido</h5>
                         <p class="card-text">Consulte o andamento da sua solicitação usando o número do protocolo e seu CPF ou CNPJ.</p>
-                        <a href="acompanhar.php?tipo=<?= $tipo_usuario ?>" class="btn btn-outline-primary">
+                        <a href="acompanhar-v2.php?tipo=<?= $tipo_usuario ?>" class="btn btn-outline-success">
                             <i class="bi bi-search"></i> Acompanhar
                         </a>
                     </div>

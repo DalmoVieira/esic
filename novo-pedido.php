@@ -1,8 +1,25 @@
 <?php
+session_start();
+
+// Verificar se está logado
 $tipo_usuario = isset($_GET['tipo']) ? $_GET['tipo'] : '';
 if (empty($tipo_usuario) || $tipo_usuario === 'anonimo') {
     header('Location: login.php');
     exit;
+}
+
+// Incluir dependências
+require_once 'app/config/Database.php';
+
+try {
+    $db = Database::getInstance();
+    
+    // Buscar órgãos ativos para o select
+    $orgaos = $db->select("SELECT id, nome, sigla FROM orgaos_setores WHERE ativo = 1 ORDER BY ordem_exibicao, nome");
+    
+} catch (Exception $e) {
+    $error_message = "Erro ao carregar dados: " . $e->getMessage();
+    $orgaos = [];
 }
 ?>
 <!DOCTYPE html>
@@ -10,20 +27,72 @@ if (empty($tipo_usuario) || $tipo_usuario === 'anonimo') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nova Solicitação - E-SIC Rio Claro</title>
+    <title>Novo Pedido - E-SIC Rio Claro</title>
+    <meta name="description" content="Submeter nova solicitação de informação - E-SIC Rio Claro">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        .form-floating textarea {
+            min-height: 120px;
+        }
+        .char-counter {
+            font-size: 0.875rem;
+            color: #6c757d;
+        }
+        .char-counter.warning {
+            color: #fd7e14;
+        }
+        .char-counter.danger {
+            color: #dc3545;
+        }
+        .info-card {
+            background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
+            border-left: 4px solid var(--primary-color);
+        }
+        .required-field::after {
+            content: " *";
+            color: #dc3545;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body class="bg-light">
+    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark hero-gradient">
         <div class="container">
             <a class="navbar-brand fw-bold" href="dashboard.php?tipo=<?= $tipo_usuario ?>">
                 <img src="assets/images/logo-rioclaro.svg" alt="Logo Rio Claro" height="32" class="me-2" onerror="this.style.display='none'">
                 E-SIC Rio Claro
             </a>
-            <div class="navbar-nav ms-auto">
-                <a class="nav-link" href="dashboard.php?tipo=<?= $tipo_usuario ?>">← Voltar ao Dashboard</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="dashboard.php?tipo=<?= $tipo_usuario ?>">
+                            <i class="bi bi-house"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="novo-pedido.php?tipo=<?= $tipo_usuario ?>">
+                            <i class="bi bi-plus-circle"></i> Novo Pedido
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="acompanhar.php?tipo=<?= $tipo_usuario ?>">
+                            <i class="bi bi-search"></i> Acompanhar
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.php">
+                            <i class="bi bi-box-arrow-right"></i> Sair
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>
