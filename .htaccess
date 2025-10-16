@@ -15,10 +15,14 @@
 # Seguir links simbólicos
 Options +FollowSymLinks
 
-# Permitir sobrescrita de configurações
+# Redirecionar para pasta public
 <IfModule mod_rewrite.c>
-    # RewriteEngine On
-    # Desabilitado temporariamente
+    RewriteEngine On
+    
+    # Se não é a pasta public, redirecionar
+    RewriteCond %{REQUEST_URI} !^/esic/public/
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^(.*)$ public/$1 [L]
 </IfModule>
 
 # Negar acesso a arquivos sensíveis

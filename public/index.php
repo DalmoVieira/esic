@@ -78,9 +78,13 @@ class Router {
         // ROTAS PÚBLICAS
         // =======================================================
         
-        // Página inicial
-        $this->get('/', 'HomeController@index');
-        $this->get('/home', 'HomeController@index');
+        // Página inicial - redirecionar para login
+        $this->get('/', function() {
+            Response::redirect(url('/auth/login'));
+        });
+        $this->get('/home', function() {
+            Response::redirect(url('/auth/login'));
+        });
         
         // Novo pedido
         $this->get('/novo-pedido', 'PedidoController@formulario');
