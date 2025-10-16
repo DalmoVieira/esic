@@ -23,6 +23,8 @@ Write-Host "OK" -ForegroundColor Green
 # Lista de arquivos/diretórios a incluir
 $incluir = @(
     "index.php",
+    "login.php",
+    "logout.php",
     "novo-pedido.php",
     "acompanhar.php",
     "transparencia.php",

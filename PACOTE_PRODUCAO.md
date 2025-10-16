@@ -20,6 +20,10 @@
 - `transparencia.php` - Portal da transparência
 - `recurso.php` - Sistema de recursos
 
+#### **Autenticação** (Sistema de Login)
+- `login.php` - Página de autenticação
+- `logout.php` - Encerramento de sessão
+
 #### **Painel Administrativo** (Backend)
 - `admin-pedidos.php` - Gestão de pedidos
 - `admin-recursos.php` - Gestão de recursos
@@ -159,7 +163,7 @@ esic_v3.0.0_producao_20251016_140553.zip
 
 ### **Quantidade de Arquivos**
 - **Total:** ~50-60 arquivos
-- **PHP:** ~20 arquivos
+- **PHP:** ~22 arquivos (incluindo login.php e logout.php)
 - **JavaScript:** ~4 arquivos
 - **CSS:** ~3 arquivos
 - **SQL:** 1 arquivo
