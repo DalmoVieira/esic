@@ -1,9 +1,8 @@
-RewriteEngine On
-
-# Redirecionar todas as requisições que não são arquivos ou diretórios para index.php
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ index.php [QSA,L]
+# RewriteEngine On
+# DESABILITADO: Esta regra estava causando conflito com o redirecionamento do index.php
+# RewriteCond %{REQUEST_FILENAME} !-f
+# RewriteCond %{REQUEST_FILENAME} !-d
+# RewriteRule ^(.*)$ index.php [QSA,L]
 
 # Deny access to sensitive files
 <Files "*.php~">

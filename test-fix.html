@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste de Redirecionamento - E-SIC</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 { color: #0d6efd; }
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            margin: 10px 5px;
+            text-decoration: none;
+            color: white;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .btn-primary { background: #0d6efd; }
+        .btn-success { background: #198754; }
+        .btn-warning { background: #ffc107; color: #000; }
+        .alert {
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .alert-info {
+            background: #cfe2ff;
+            border: 1px solid #b6d4fe;
+            color: #084298;
+        }
+        .alert-success {
+            background: #d1e7dd;
+            border: 1px solid #badbcc;
+            color: #0f5132;
+        }
+        code {
+            background: #f8f9fa;
+            padding: 2px 6px;
+            border-radius: 3px;
+            color: #d63384;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>🔧 Teste de Redirecionamento E-SIC</h1>
+        
+        <div class="alert alert-info">
+            <strong>Problema Identificado:</strong> O arquivo <code>.htaccess</code> estava redirecionando 
+            todas as requisições para <code>index.php</code>, criando um loop infinito.
+        </div>
+        
+        <div class="alert alert-success">
+            <strong>Solução Aplicada:</strong> A regra de rewrite foi desabilitada no <code>.htaccess</code>.
+        </div>
+        
+        <h2>Teste o Redirecionamento:</h2>
+        <p>Clique nos botões abaixo para testar se o redirecionamento está funcionando:</p>
+        
+        <a href="index.php" class="btn btn-primary">
+            1️⃣ Acessar index.php<br>
+            <small style="font-size: 0.8em;">(deve redirecionar para login.php)</small>
+        </a>
+        
+        <a href="login.php" class="btn btn-success">
+            2️⃣ Acessar login.php diretamente<br>
+            <small style="font-size: 0.8em;">(deve abrir a tela de login)</small>
+        </a>
+        
+        <a href="test-redirect.php" class="btn btn-warning">
+            3️⃣ Ver Diagnóstico Completo<br>
+            <small style="font-size: 0.8em;">(informações técnicas)</small>
+        </a>
+        
+        <h2>Como Funciona Agora:</h2>
+        <ol>
+            <li><strong>Acessa:</strong> <code>http://localhost/esic/</code></li>
+            <li><strong>Apache carrega:</strong> <code>index.php</code></li>
+            <li><strong>PHP executa:</strong> <code>header("Location: login.php")</code></li>
+            <li><strong>Navegador redireciona:</strong> <code>http://localhost/esic/login.php</code></li>
+            <li><strong>Usuário vê:</strong> Tela de login! ✅</li>
+        </ol>
+        
+        <h2>Arquivo .htaccess Corrigido:</h2>
+        <pre style="background: #f8f9fa; padding: 15px; border-radius: 5px; overflow-x: auto;">
+# RewriteEngine On
+# DESABILITADO: Esta regra estava causando conflito
+# RewriteCond %{REQUEST_FILENAME} !-f
+# RewriteCond %{REQUEST_FILENAME} !-d
+# RewriteRule ^(.*)$ index.php [QSA,L]
+
+# Deny access to sensitive files
+&lt;Files "*.php~"&gt;
+    Deny from all
+&lt;/Files&gt;
+&lt;Files ".env"&gt;
+    Deny from all
+&lt;/Files&gt;
+
+# Disable directory browsing
+Options -Indexes
+
+# Set default index file
+DirectoryIndex index.php index.html
+        </pre>
+        
+        <hr style="margin: 30px 0;">
+        
+        <h2>Outras Páginas do Sistema:</h2>
+        <a href="novo-pedido.php" class="btn btn-primary" style="background: #6c757d;">Novo Pedido</a>
+        <a href="acompanhar.php" class="btn btn-primary" style="background: #6c757d;">Acompanhar Pedido</a>
+        <a href="transparencia.php" class="btn btn-primary" style="background: #6c757d;">Transparência</a>
+    </div>
+</body>
+</html>
