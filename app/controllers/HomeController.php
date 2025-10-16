@@ -17,8 +17,6 @@ class HomeController extends Controller
 {
     private $pedidoModel;
     
-    private $pedidoModel;
-    
     public function __construct() {
         parent::__construct();
         $this->pedidoModel = new Pedido();

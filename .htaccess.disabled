@@ -2,27 +2,30 @@
 # E-SIC - Apache Configuration
 # ==================================================
 
-# Forçar index.php como página padrão
-<IfModule mod_dir.c>
-    DirectoryIndex index.php
-</IfModule>
+# IMPORTANTE: Desabilitar completamente a listagem de diretórios
+Options -Indexes +FollowSymLinks
 
-# Desabilitar listagem de diretórios
-<IfModule mod_autoindex.c>
-    Options -Indexes
-</IfModule>
-
-# Seguir links simbólicos
-Options +FollowSymLinks
-
-# Redirecionar para pasta public
+# Mod Rewrite - Redirecionar para pasta public
 <IfModule mod_rewrite.c>
     RewriteEngine On
+    RewriteBase /esic/
     
-    # Se não é a pasta public, redirecionar
+    # Redirecionar raiz para public/
+    RewriteRule ^$ public/ [L,R=302]
+    
+    # Redirecionar index.php para public/
+    RewriteRule ^index\.php$ public/ [L,R=302]
+    
+    # Se não é a pasta public e não é um arquivo real, redirecionar
     RewriteCond %{REQUEST_URI} !^/esic/public/
     RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule ^(.*)$ public/$1 [L]
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ public/$1 [L,R=302]
+</IfModule>
+
+# Forçar index.php como padrão (fallback)
+<IfModule mod_dir.c>
+    DirectoryIndex index.php index.html
 </IfModule>
 
 # Negar acesso a arquivos sensíveis
