@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Central de Testes E-SIC</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+        }
+        .test-btn {
+            display: block;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .test-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+        .test-btn.success { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); }
+        .test-btn.warning { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        .test-btn.info { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+        .test-btn.danger { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+        
+        .section {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        .section h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+        .status {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+        .status.ok { background: #d4edda; color: #155724; }
+        .status.error { background: #f8d7da; color: #721c24; }
+        .status.warning { background: #fff3cd; color: #856404; }
+        
+        .instructions {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .instructions h3 {
+            color: #1976D2;
+            margin-bottom: 10px;
+        }
+        .instructions ol {
+            margin-left: 20px;
+        }
+        .instructions li {
+            margin: 8px 0;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 Central de Testes E-SIC</h1>
+        <p class="subtitle">Ferramenta de diagnóstico e testes do sistema</p>
+        
+        <div class="section">
+            <h2>📊 Status do Sistema</h2>
+            <p><span class="status ok">✓ Apache Rodando</span> <span class="status ok">✓ Porta 80</span></p>
+        </div>
+        
+        <div class="section">
+            <h2>🧪 Testes Básicos</h2>
+            <div class="test-grid">
+                <a href="teste1.php" class="test-btn success" target="_blank">
+                    🟢 Teste 1<br><small>PHP Simples</small>
+                </a>
+                <a href="teste2.html" class="test-btn info" target="_blank">
+                    🔵 Teste 2<br><small>HTML Puro</small>
+                </a>
+                <a href="teste3.php" class="test-btn warning" target="_blank">
+                    🟠 Teste 3<br><small>Redirecionamento</small>
+                </a>
+                <a href="teste-completo.php" class="test-btn danger" target="_blank">
+                    🔴 Teste Completo<br><small>Diagnóstico Full</small>
+                </a>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>🚀 Sistema E-SIC</h2>
+            <div class="test-grid">
+                <a href="index.php" class="test-btn" target="_blank">
+                    🏠 index.php<br><small>Página Principal</small>
+                </a>
+                <a href="login.php" class="test-btn success" target="_blank">
+                    🔐 login.php<br><small>Tela de Login</small>
+                </a>
+                <a href="novo-pedido.php" class="test-btn info" target="_blank">
+                    📝 novo-pedido.php<br><small>Novo Pedido</small>
+                </a>
+                <a href="acompanhar.php" class="test-btn warning" target="_blank">
+                    🔍 acompanhar.php<br><small>Acompanhar</small>
+                </a>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>🛠️ Ferramentas de Diagnóstico</h2>
+            <div class="test-grid">
+                <a href="phpinfo-test.php" class="test-btn info" target="_blank">
+                    ℹ️ PHP Info<br><small>Informações PHP</small>
+                </a>
+                <a href="test-error.php" class="test-btn warning" target="_blank">
+                    ⚠️ Test Error<br><small>Detectar Erros</small>
+                </a>
+                <a href="login-minimal.php" class="test-btn success" target="_blank">
+                    📄 Login Minimal<br><small>Versão Simplificada</small>
+                </a>
+                <a href="login-simples.php" class="test-btn danger" target="_blank">
+                    📄 Login Simples<br><small>Versão Básica</small>
+                </a>
+            </div>
+        </div>
+        
+        <div class="instructions">
+            <h3>📋 Como Usar Esta Central:</h3>
+            <ol>
+                <li><strong>Clique em cada botão</strong> - Eles abrem em novas abas do navegador</li>
+                <li><strong>Teste em ordem:</strong> Comece pelos "Testes Básicos" (1, 2, 3)</li>
+                <li><strong>Se aparecer página branca:</strong>
+                    <ul style="margin-top: 5px;">
+                        <li>Pressione F12 (Ferramentas do Desenvolvedor)</li>
+                        <li>Vá na aba "Console" - Veja erros JavaScript</li>
+                        <li>Vá na aba "Network" - Veja se arquivos carregam</li>
+                        <li>Vá na aba "Application" - Limpe cache/cookies</li>
+                    </ul>
+                </li>
+                <li><strong>Limpar cache:</strong> Ctrl + Shift + Delete</li>
+                <li><strong>Modo anônimo:</strong> Ctrl + Shift + N (Chrome) ou Ctrl + Shift + P (Firefox)</li>
+                <li><strong>Testar em outro navegador:</strong> Chrome, Firefox, Edge</li>
+            </ol>
+        </div>
+        
+        <div class="section">
+            <h2>💡 Dicas de Troubleshooting</h2>
+            <ul style="line-height: 1.8;">
+                <li>✅ Se <strong>teste1.php</strong> funciona → PHP está OK</li>
+                <li>✅ Se <strong>teste2.html</strong> funciona → Apache está OK</li>
+                <li>✅ Se <strong>teste3.php</strong> redireciona → Redirecionamento OK</li>
+                <li>❌ Se tudo fica branco → Problema de cache ou JavaScript</li>
+                <li>❌ Se só algumas páginas falham → Problema específico do arquivo</li>
+            </ul>
+        </div>
+        
+        <div style="text-align: center; margin-top: 40px; padding-top: 20px; border-top: 2px solid #eee;">
+            <p style="color: #999;">E-SIC v3.0.0 - Prefeitura Municipal de Rio Claro - SP</p>
+            <p style="color: #ccc; font-size: 0.9em;">Central de Testes e Diagnóstico</p>
+        </div>
+    </div>
+</body>
+</html>
