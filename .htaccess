@@ -1,3 +1,9 @@
+# Forçar index.php como página padrão
+DirectoryIndex index.php index.html
+
+# Desabilitar listagem de diretórios
+Options -Indexes +FollowSymLinks
+
 # RewriteEngine On
 # DESABILITADO: Esta regra estava causando conflito com o redirecionamento do index.php
 # RewriteCond %{REQUEST_FILENAME} !-f
