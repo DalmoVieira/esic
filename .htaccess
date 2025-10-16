@@ -1,28 +1,43 @@
+# ==================================================
+# E-SIC - Apache Configuration
+# ==================================================
+
 # Forçar index.php como página padrão
-DirectoryIndex index.php index.html
+<IfModule mod_dir.c>
+    DirectoryIndex index.php
+</IfModule>
 
 # Desabilitar listagem de diretórios
-Options -Indexes +FollowSymLinks
+<IfModule mod_autoindex.c>
+    Options -Indexes
+</IfModule>
 
-# RewriteEngine On
-# DESABILITADO: Esta regra estava causando conflito com o redirecionamento do index.php
-# RewriteCond %{REQUEST_FILENAME} !-f
-# RewriteCond %{REQUEST_FILENAME} !-d
-# RewriteRule ^(.*)$ index.php [QSA,L]
+# Seguir links simbólicos
+Options +FollowSymLinks
 
-# Deny access to sensitive files
-<Files "*.php~">
-    Deny from all
-</Files>
-<Files ".env">
-    Deny from all
-</Files>
+# Permitir sobrescrita de configurações
+<IfModule mod_rewrite.c>
+    # RewriteEngine On
+    # Desabilitado temporariamente
+</IfModule>
+
+# Negar acesso a arquivos sensíveis
+<FilesMatch "\.(php~|env|git|svn|htaccess|htpasswd|ini|log|sh|bak|backup)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+</FilesMatch>
+
+# Negar acesso a composer
 <Files "composer.*">
-    Deny from all
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
 </Files>
 
-# Disable directory browsing
-Options -Indexes
-
-# Set default index file
-DirectoryIndex index.php index.html
+# Segurança adicional
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+</IfModule>

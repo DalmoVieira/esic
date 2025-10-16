@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagnóstico Final - E-SIC</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #252526;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+        h1 {
+            color: #4ec9b0;
+            border-bottom: 2px solid #4ec9b0;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #569cd6;
+            margin-top: 30px;
+        }
+        .test {
+            background: #1e1e1e;
+            padding: 15px;
+            margin: 15px 0;
+            border-left: 4px solid #569cd6;
+            border-radius: 4px;
+        }
+        .success { border-left-color: #4ec9b0; }
+        .error { border-left-color: #f48771; }
+        .warning { border-left-color: #dcdcaa; }
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            margin: 10px 5px;
+            background: #0e639c;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        .btn:hover {
+            background: #1177bb;
+        }
+        .btn.success { background: #107c10; }
+        .btn.success:hover { background: #0f6e0f; }
+        .btn.danger { background: #a80000; }
+        .btn.danger:hover { background: #900000; }
+        pre {
+            background: #1e1e1e;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+            border: 1px solid #3c3c3c;
+        }
+        .status {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 3px;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+        .status.ok { background: #107c10; color: white; }
+        .status.fail { background: #a80000; color: white; }
+        .status.loading { background: #dcdcaa; color: #1e1e1e; }
+        iframe {
+            width: 100%;
+            height: 200px;
+            border: 2px solid #3c3c3c;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Diagnóstico Final - E-SIC</h1>
+        <p><strong>Data/Hora:</strong> <span id="datetime"></span></p>
+        
+        <h2>📊 Testes Automáticos</h2>
+        
+        <div class="test">
+            <strong>Teste 1: Acesso ao index.php diretamente</strong>
+            <div id="test1"><span class="status loading">Testando...</span></div>
+        </div>
+        
+        <div class="test">
+            <strong>Teste 2: Acesso ao diretório /esic/</strong>
+            <div id="test2"><span class="status loading">Testando...</span></div>
+        </div>
+        
+        <div class="test">
+            <strong>Teste 3: Acesso ao login.php</strong>
+            <div id="test3"><span class="status loading">Testando...</span></div>
+        </div>
+        
+        <h2>🔗 Testes Manuais</h2>
+        
+        <div class="test">
+            <p>Clique em cada link abaixo e veja o que acontece:</p>
+            <a href="http://localhost/esic/" target="_blank" class="btn">1️⃣ http://localhost/esic/</a>
+            <a href="http://localhost/esic/index.php" target="_blank" class="btn success">2️⃣ http://localhost/esic/index.php</a>
+            <a href="http://localhost/esic/login.php" target="_blank" class="btn">3️⃣ http://localhost/esic/login.php</a>
+        </div>
+        
+        <h2>📋 O que você deve ver:</h2>
+        
+        <div class="test success">
+            <strong>✅ CORRETO:</strong>
+            <ul>
+                <li>Link 1 e 2: Devem redirecionar para login.php</li>
+                <li>Link 3: Deve mostrar tela de login (roxa/azul)</li>
+                <li>Nenhum deve mostrar listagem de arquivos</li>
+                <li>Nenhum deve mostrar código PHP</li>
+            </ul>
+        </div>
+        
+        <div class="test error">
+            <strong>❌ INCORRETO:</strong>
+            <ul>
+                <li>Se mostra listagem de arquivos da pasta</li>
+                <li>Se mostra código fonte PHP</li>
+                <li>Se fica página em branco total</li>
+                <li>Se dá erro 404 ou 500</li>
+            </ul>
+        </div>
+        
+        <h2>🛠️ Ações Corretivas</h2>
+        
+        <div class="test warning">
+            <strong>Se ainda estiver mostrando listagem de arquivos:</strong>
+            <ol>
+                <li>Abra: <code>C:\xampp\htdocs\esic\.htaccess</code></li>
+                <li>Verifique se a primeira linha é: <code>DirectoryIndex index.php</code></li>
+                <li>Salve e reinicie Apache no XAMPP Control Panel</li>
+                <li>Limpe cache do navegador: Ctrl + Shift + Delete</li>
+                <li>Teste novamente em modo anônimo: Ctrl + Shift + N</li>
+            </ol>
+        </div>
+        
+        <h2>📞 Reporte o Resultado</h2>
+        
+        <div class="test">
+            <p><strong>Me diga exatamente o que você vê quando clica no Link 1:</strong></p>
+            <textarea id="userReport" rows="6" style="width: 100%; background: #1e1e1e; color: #d4d4d4; border: 1px solid #3c3c3c; padding: 10px; border-radius: 4px;" placeholder="Descreva aqui o que aparece na tela..."></textarea>
+        </div>
+        
+        <h2>🎯 Debug Técnico</h2>
+        
+        <div class="test">
+            <strong>Iframe Test - /esic/:</strong>
+            <iframe src="http://localhost/esic/" id="iframe1"></iframe>
+            <p><strong>Status:</strong> <span id="iframeStatus1"></span></p>
+        </div>
+        
+        <div class="test">
+            <strong>Iframe Test - /esic/index.php:</strong>
+            <iframe src="http://localhost/esic/index.php" id="iframe2"></iframe>
+            <p><strong>Status:</strong> <span id="iframeStatus2"></span></p>
+        </div>
+    </div>
+    
+    <script>
+        // Atualizar data/hora
+        document.getElementById('datetime').textContent = new Date().toLocaleString('pt-BR');
+        
+        // Função para testar URLs
+        async function testURL(url, testId) {
+            const testDiv = document.getElementById(testId);
+            try {
+                const response = await fetch(url, { redirect: 'manual' });
+                const status = response.status;
+                const type = response.type;
+                
+                let html = '';
+                if (status === 302 || status === 301) {
+                    html = `<span class="status ok">✅ OK</span> Status: ${status} (Redirecionando)`;
+                } else if (status === 200) {
+                    const text = await response.text();
+                    if (text.includes('<!DOCTYPE') || text.includes('<html')) {
+                        html = `<span class="status ok">✅ OK</span> Status: ${status} (HTML válido)`;
+                    } else if (text.includes('<?php')) {
+                        html = `<span class="status fail">❌ ERRO</span> Status: ${status} (Código PHP não processado!)`;
+                    } else {
+                        html = `<span class="status ok">⚠️ AVISO</span> Status: ${status} (Conteúdo: ${text.length} bytes)`;
+                    }
+                } else {
+                    html = `<span class="status fail">❌ ERRO</span> Status: ${status}`;
+                }
+                
+                testDiv.innerHTML = html;
+            } catch (error) {
+                testDiv.innerHTML = `<span class="status fail">❌ ERRO</span> ${error.message}`;
+            }
+        }
+        
+        // Executar testes
+        testURL('http://localhost/esic/index.php', 'test1');
+        testURL('http://localhost/esic/', 'test2');
+        testURL('http://localhost/esic/login.php', 'test3');
+        
+        // Monitorar iframes
+        setTimeout(() => {
+            const iframe1 = document.getElementById('iframe1');
+            const iframe2 = document.getElementById('iframe2');
+            
+            try {
+                const doc1 = iframe1.contentDocument || iframe1.contentWindow.document;
+                document.getElementById('iframeStatus1').textContent = 
+                    doc1.body ? `Carregado (${doc1.body.innerText.length} chars)` : 'Erro de carregamento';
+            } catch (e) {
+                document.getElementById('iframeStatus1').textContent = 'Redirecionado ou bloqueado (pode ser normal)';
+            }
+            
+            try {
+                const doc2 = iframe2.contentDocument || iframe2.contentWindow.document;
+                document.getElementById('iframeStatus2').textContent = 
+                    doc2.body ? `Carregado (${doc2.body.innerText.length} chars)` : 'Erro de carregamento';
+            } catch (e) {
+                document.getElementById('iframeStatus2').textContent = 'Redirecionado ou bloqueado (pode ser normal)';
+            }
+        }, 2000);
+    </script>
+</body>
+</html>
