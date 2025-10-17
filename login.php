@@ -102,7 +102,7 @@ ini_set('display_startup_errors', 1);
         <div class="container">
             <nav class="navbar navbar-dark">
                 <span class="navbar-brand fw-bold">
-                    <img src="assets/images/logo-rioclaro.svg" alt="Logo Rio Claro" height="32" class="me-2" onerror="this.style.display='none'">
+                    <img src="assets/images/logo-pmrcrj.png" alt="Logo Prefeitura Municipal de Rio Claro" height="32" class="me-2" onerror="this.style.display='none'">
                     E-SIC Rio Claro
                 </span>
                 <div class="d-flex align-items-center text-white">
@@ -123,7 +123,7 @@ ini_set('display_startup_errors', 1);
                         <!-- Lado Esquerdo - Informações -->
                         <div class="col-lg-6 bg-light p-5 d-flex flex-column justify-content-center">
                             <div class="text-center mb-4">
-                                <img src="assets/images/logo-rioclaro.svg" alt="Logo Prefeitura de Rio Claro" class="mb-3" style="max-height: 100px;" onerror="this.style.display='none'">
+                                <img src="assets/images/logo-pmrcrj.png" alt="Logo Prefeitura Municipal de Rio Claro" class="mb-3" style="max-height: 100px;" onerror="this.style.display='none'">
                                 <h2 class="text-primary mb-2">E-SIC Rio Claro</h2>
                                 <p class="text-muted lead">Sistema Eletrônico de Informações ao Cidadão</p>
                                 <p class="text-muted">Prefeitura Municipal de Rio Claro - RJ</p>

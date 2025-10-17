@@ -13,7 +13,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark hero-gradient">
         <div class="container">
             <a class="navbar-brand fw-bold" href="index.php">
-                <img src="assets/images/logo-rioclaro.svg" alt="Logo Rio Claro" height="32" class="me-2" onerror="this.style.display='none'">
+                <img src="assets/images/logo-pmrcrj.png" alt="Logo Prefeitura Municipal de Rio Claro" height="32" class="me-2" onerror="this.style.display='none'">
                 E-SIC Rio Claro
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -42,7 +42,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="text-center mb-5">
-                    <img src="assets/images/logo-rioclaro.svg" alt="Logo Prefeitura de Rio Claro" class="mb-3" style="max-height: 80px;" onerror="this.style.display='none'">
+                    <img src="assets/images/logo-pmrcrj.png" alt="Logo Prefeitura Municipal de Rio Claro" class="mb-3" style="max-height: 80px;" onerror="this.style.display='none'">
                     <h1 class="display-4 text-primary mb-3">E-SIC Rio Claro</h1>
                     <p class="lead">Prefeitura Municipal de Rio Claro - RJ</p>
                     <p class="text-muted">Sistema Eletrônico de Informações ao Cidadão</p>

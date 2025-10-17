@@ -38,7 +38,7 @@ if (file_exists($logs_file)) {
     <nav class="navbar navbar-expand-lg navbar-dark hero-gradient">
         <div class="container">
             <a class="navbar-brand fw-bold" href="dashboard.php?tipo=administrador">
-                <img src="assets/images/logo-rioclaro.svg" alt="Logo Rio Claro" height="32" class="me-2" onerror="this.style.display='none'">
+                <img src="assets/images/logo-pmrcrj.png" alt="Logo Prefeitura Municipal de Rio Claro" height="32" class="me-2" onerror="this.style.display='none'">
                 E-SIC Rio Claro
             </a>
             <div class="navbar-nav ms-auto">

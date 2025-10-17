@@ -27,7 +27,7 @@ define('ORG_ZIP', '27.460-000');
 define('ORG_EMAIL', 'pmrc@rioclaro.rj.gov.br');
 define('ORG_PHONE', '(22) 0000-0000'); // Adicionar telefone real
 define('ORG_WEBSITE', 'https://rioclaro.rj.gov.br');
-define('ORG_LOGO', '/assets/images/logo-rioclaro.png'); // Logo fictício
+define('ORG_LOGO', '/assets/images/logo-pmrcrj.png'); // Logo da Prefeitura Municipal de Rio Claro - RJ
 
 // Database settings
 define('DB_HOST', $_ENV['DB_HOST'] ?? 'localhost');
