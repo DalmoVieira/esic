@@ -44,8 +44,8 @@ check_status() {
 echo -e "${BLUE}[1/12] Verificando diretório do projeto...${NC}"
 
 ESIC_PATHS=(
-    "/var/www/html/esic"
     "/var/www/esic"
+    "/var/www/html/esic"
     "/usr/share/nginx/html/esic"
     "/home/*/public_html/esic"
 )

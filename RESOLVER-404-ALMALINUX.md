@@ -43,17 +43,18 @@ sudo nano /etc/httpd/conf.d/esic.conf
 
 Verificar linha:
 ```apache
-DocumentRoot /var/www/html/esic
+DocumentRoot /var/www/esic
 ```
 
-Deve apontar para onde os arquivos estão!
+**IMPORTANTE:** No AlmaLinux 9, o caminho padrão é `/var/www/esic` (sem o `html`).
+Deve apontar exatamente para onde os arquivos estão!
 
 ### 2. SELinux Bloqueando
 **Problema:** SELinux impede Apache de ler arquivos
 
 **Solução:**
 ```bash
-sudo chcon -R -t httpd_sys_content_t /var/www/html/esic
+sudo chcon -R -t httpd_sys_content_t /var/www/esic
 sudo setsebool -P httpd_unified on
 ```
 
@@ -62,7 +63,7 @@ sudo setsebool -P httpd_unified on
 
 **Solução:**
 ```bash
-cd /var/www/html/esic
+cd /var/www/esic
 sudo chown -R apache:apache .
 sudo find . -type d -exec chmod 755 {} \;
 sudo find . -type f -exec chmod 644 {} \;
@@ -73,7 +74,7 @@ sudo find . -type f -exec chmod 644 {} \;
 
 **Solução:**
 ```apache
-<Directory /var/www/html/esic>
+<Directory /var/www/esic>
     AllowOverride All
     Require all granted
 </Directory>
@@ -126,8 +127,8 @@ curl -I http://localhost/esic/login.php
 Execute na ordem:
 
 ```bash
-# 1. Ir para diretório
-cd /var/www/html/esic  # Ajuste se necessário
+# 1. Ir para diretório (AlmaLinux 9 - caminho padrão)
+cd /var/www/esic
 
 # 2. Corrigir permissões
 sudo chown -R apache:apache .
@@ -154,10 +155,12 @@ Conteúdo do VirtualHost:
 ```apache
 <VirtualHost *:80>
     ServerName rioclaro.rj.gov.br
+    ServerAlias www.rioclaro.rj.gov.br
     
-    DocumentRoot /var/www/html/esic
+    # IMPORTANTE: Caminho padrão no AlmaLinux 9
+    DocumentRoot /var/www/esic
     
-    <Directory /var/www/html/esic>
+    <Directory /var/www/esic>
         Options -Indexes +FollowSymLinks
         AllowOverride All
         Require all granted
