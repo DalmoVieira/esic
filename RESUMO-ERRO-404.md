@@ -166,10 +166,10 @@ O erro 404 é um problema de **configuração do servidor**, não do banco de da
 Execute no servidor e marque:
 
 ```
-☐ Arquivos estão em /var/www/esic/ (AlmaLinux 9)
+☐ Arquivos estão em /var/www/html/
 ☐ login.php existe e é legível
 ☐ VirtualHost configurado corretamente
-☐ DocumentRoot aponta para /var/www/esic
+☐ DocumentRoot aponta para /var/www/html
 ☐ AllowOverride All está no VirtualHost
 ☐ mod_rewrite habilitado no Apache
 ☐ .htaccess criado na raiz

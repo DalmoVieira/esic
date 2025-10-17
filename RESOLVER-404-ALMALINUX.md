@@ -38,23 +38,23 @@ sudo bash /tmp/diagnostico-almalinux.sh
 
 **Solução:**
 ```bash
-sudo nano /etc/httpd/conf.d/esic.conf
+sudo nano /etc/httpd/conf.d/rioclaro.conf
 ```
 
 Verificar linha:
 ```apache
-DocumentRoot /var/www/esic
+DocumentRoot /var/www/html
 ```
 
-**IMPORTANTE:** No AlmaLinux 9, o caminho padrão é `/var/www/esic` (sem o `html`).
-Deve apontar exatamente para onde os arquivos estão!
+**IMPORTANTE:** O sistema fica na raiz do servidor web (`/var/www/html`).
+A URL será `rioclaro.rj.gov.br` (sem `/esic`).
 
 ### 2. SELinux Bloqueando
 **Problema:** SELinux impede Apache de ler arquivos
 
 **Solução:**
 ```bash
-sudo chcon -R -t httpd_sys_content_t /var/www/esic
+sudo chcon -R -t httpd_sys_content_t /var/www/html
 sudo setsebool -P httpd_unified on
 ```
 
@@ -63,7 +63,7 @@ sudo setsebool -P httpd_unified on
 
 **Solução:**
 ```bash
-cd /var/www/esic
+cd /var/www/html
 sudo chown -R apache:apache .
 sudo find . -type d -exec chmod 755 {} \;
 sudo find . -type f -exec chmod 644 {} \;
@@ -74,7 +74,7 @@ sudo find . -type f -exec chmod 644 {} \;
 
 **Solução:**
 ```apache
-<Directory /var/www/esic>
+<Directory /var/www/html>
     AllowOverride All
     Require all granted
 </Directory>
@@ -127,8 +127,8 @@ curl -I http://localhost/esic/login.php
 Execute na ordem:
 
 ```bash
-# 1. Ir para diretório (AlmaLinux 9 - caminho padrão)
-cd /var/www/esic
+# 1. Ir para diretório (raiz do servidor web)
+cd /var/www/html
 
 # 2. Corrigir permissões
 sudo chown -R apache:apache .
@@ -148,7 +148,7 @@ Options -Indexes
 EOF
 
 # 5. Criar/Editar VirtualHost
-sudo nano /etc/httpd/conf.d/esic.conf
+sudo nano /etc/httpd/conf.d/rioclaro.conf
 ```
 
 Conteúdo do VirtualHost:
@@ -157,17 +157,17 @@ Conteúdo do VirtualHost:
     ServerName rioclaro.rj.gov.br
     ServerAlias www.rioclaro.rj.gov.br
     
-    # IMPORTANTE: Caminho padrão no AlmaLinux 9
-    DocumentRoot /var/www/esic
+    # Sistema na raiz do servidor web
+    DocumentRoot /var/www/html
     
-    <Directory /var/www/esic>
+    <Directory /var/www/html>
         Options -Indexes +FollowSymLinks
         AllowOverride All
         Require all granted
     </Directory>
     
-    ErrorLog /var/log/httpd/esic-error.log
-    CustomLog /var/log/httpd/esic-access.log combined
+    ErrorLog /var/log/httpd/rioclaro-error.log
+    CustomLog /var/log/httpd/rioclaro-access.log combined
 </VirtualHost>
 ```
 
@@ -184,7 +184,7 @@ sudo systemctl restart httpd
 sudo systemctl restart php-fpm
 
 # 9. Testar
-curl -I http://localhost/esic/login.php
+curl -I http://localhost/login.php
 ```
 
 ---
